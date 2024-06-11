@@ -1,152 +1,54 @@
 import 'package:flutter/material.dart';
 
-class DoctorPage extends StatefulWidget {
+class DoctorPage extends StatelessWidget {
   const DoctorPage({super.key});
-
-  @override
-  State<DoctorPage> createState() => _DoctorPageState();
-}
-
-class _DoctorPageState extends State<DoctorPage> {
-  bool _isHovered1 = false;
-  bool _isHovered2 = false;
-  bool _isHovered3 = false;
-
-  void _onEnter(int index) {
-    setState(() {
-      if (index == 1) _isHovered1 = true;
-      if (index == 2) _isHovered2 = true;
-      if (index == 3) _isHovered3 = true;
-    });
-  }
-
-  void _onExit(int index) {
-    setState(() {
-      if (index == 1) _isHovered1 = false;
-      if (index == 2) _isHovered2 = false;
-      if (index == 3) _isHovered3 = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 100.0), // 상단에서 100만큼 아래로 패딩 추가
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    final ThemeData themeData = ThemeData(useMaterial3: true);
+
+    return MaterialApp(
+        theme: themeData,
+        home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                MouseRegion(
-                  onEnter: (event) => _onEnter(1),
-                  onExit: (event) => _onExit(1),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        child: const Text("Hover me 1"),
-                        onPressed: () {},
+                const Icon(
+                  Icons.search,
+                  color: Colors.black12,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 16,
                       ),
-                      Visibility(
-                        visible: _isHovered1,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 1"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 2"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 3"),
-                              onPressed: () {},
-                            ),
-                          ],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
                         ),
                       ),
-                    ],
+                      hintText: '검색 키워드를 입력해주세요',
+                    ),
                   ),
                 ),
-                const SizedBox(width: 20),
-                MouseRegion(
-                  onEnter: (event) => _onEnter(2),
-                  onExit: (event) => _onExit(2),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        child: const Text("Hover me 2"),
-                        onPressed: () {},
-                      ),
-                      Visibility(
-                        visible: _isHovered2,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 1"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 2"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 3"),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                const SizedBox(
+                  width: 8,
                 ),
-                const SizedBox(width: 20),
-                MouseRegion(
-                  onEnter: (event) => _onEnter(3),
-                  onExit: (event) => _onExit(3),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        child: const Text("Hover me 3"),
-                        onPressed: () {},
-                      ),
-                      Visibility(
-                        visible: _isHovered3,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 1"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 2"),
-                              onPressed: () {},
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              child: const Text("Button 3"),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('검색'),
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
