@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'purchase_page.dart';
 
 class RecommendPage extends StatefulWidget {
   const RecommendPage({super.key});
@@ -16,7 +15,8 @@ class _RecommendPageState extends State<RecommendPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController =
+        TabController(length: 1, vsync: this); // TabController length를 1로 변경
   }
 
   @override
@@ -42,7 +42,6 @@ class _RecommendPageState extends State<RecommendPage>
           controller: _tabController,
           tabs: const [
             Tab(text: '추천창'),
-            Tab(text: '즐겨찾기'),
           ],
         ),
       ),
@@ -50,7 +49,6 @@ class _RecommendPageState extends State<RecommendPage>
         controller: _tabController,
         children: [
           _buildRecommendTab(),
-          _buildFavoritesTab(),
         ],
       ),
     );
@@ -60,20 +58,12 @@ class _RecommendPageState extends State<RecommendPage>
     return ListView(
       children: List.generate(
           50,
-          (index) => ListTile(
-                title: Text('추천 약 ${index + 1}'),
-                onTap: () => _showAddToCartDialog('추천 약 ${index + 1}'),
-              )),
-    );
-  }
-
-  Widget _buildFavoritesTab() {
-    return ListView(
-      children: List.generate(
-          50,
-          (index) => ListTile(
-                title: Text('즐겨찾기 약 ${index + 1}'),
-                onTap: () => _showAddToCartDialog('즐겨찾기 약 ${index + 1}'),
+          (index) => Card(
+                margin: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  title: Text('추천 약 ${index + 1}'),
+                  onTap: () => _showAddToCartDialog('추천 약 ${index + 1}'),
+                ),
               )),
     );
   }
@@ -150,53 +140,47 @@ class _RecommendPageState extends State<RecommendPage>
                 Expanded(
                   child: ListView(
                     children: _cart.entries.map((entry) {
-                      return ListTile(
-                        title: Text('${entry.key} x${entry.value}'),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove),
-                              onPressed: () {
-                                setState(() {
-                                  if (entry.value > 1) {
-                                    _cart[entry.key] = entry.value - 1;
-                                  } else {
+                      return Card(
+                        margin: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Text('${entry.key} x${entry.value}'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    if (entry.value > 1) {
+                                      _cart[entry.key] = entry.value - 1;
+                                    } else {
+                                      _cart.remove(entry.key);
+                                    }
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    _cart[entry.key] = entry.value + 1;
+                                  });
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  setState(() {
                                     _cart.remove(entry.key);
-                                  }
-                                });
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () {
-                                setState(() {
-                                  _cart[entry.key] = entry.value + 1;
-                                });
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                setState(() {
-                                  _cart.remove(entry.key);
-                                });
-                              },
-                            ),
-                          ],
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }).toList(),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const PurchasePage()),
-                    );
-                  },
-                  child: const Text('구매하기'),
                 ),
               ],
             );

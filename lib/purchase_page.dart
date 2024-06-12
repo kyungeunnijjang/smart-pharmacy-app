@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PurchasePage extends StatefulWidget {
-  const PurchasePage({super.key});
+  final List<Map<String, String>> cartItems;
+
+  const PurchasePage({super.key, required this.cartItems});
 
   @override
   State<PurchasePage> createState() => _PurchasePageState();
@@ -18,8 +20,9 @@ class _PurchasePageState extends State<PurchasePage> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 5, // 장바구니에 담긴 약의 개수
+              itemCount: widget.cartItems.length, // 장바구니에 담긴 약의 개수
               itemBuilder: (context, index) {
+                final item = widget.cartItems[index];
                 return Container(
                   margin: const EdgeInsets.all(8.0),
                   padding: const EdgeInsets.all(16.0),
@@ -27,14 +30,15 @@ class _PurchasePageState extends State<PurchasePage> {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('약 이름',
-                          style: TextStyle(
+                      Text(item['name']!,
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 8),
-                      Text('약 설명', style: TextStyle(fontSize: 16)),
+                      const SizedBox(height: 8),
+                      Text(item['description']!,
+                          style: const TextStyle(fontSize: 16)),
                     ],
                   ),
                 );
