@@ -1,54 +1,8 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 
-class HPage extends StatefulWidget {
+class HPage extends StatelessWidget {
   const HPage({super.key});
-
-  @override
-  State<HPage> createState() => _HPageState();
-}
-
-class _HPageState extends State<HPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _codeController = TextEditingController();
-
-  void _verify() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const VerificationPage()),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('회원가입')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: '이메일'),
-            ),
-            TextField(
-              controller: _codeController,
-              decoration: const InputDecoration(labelText: '인증번호'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _verify,
-              child: const Text('인증하기'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class VerificationPage extends StatelessWidget {
-  const VerificationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +42,31 @@ class VerificationPage extends StatelessWidget {
       }
     }
 
+    String? validateInput(String value) {
+      final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
+      if (!validCharacters.hasMatch(value)) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('입력 오류'),
+              content: const Text('영어와 숫자만 입력 가능합니다.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('닫기'),
+                ),
+              ],
+            );
+          },
+        );
+        return '영어와 숫자만 입력 가능합니다.';
+      }
+      return null;
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('회원가입')),
       body: Padding(
@@ -97,16 +76,37 @@ class VerificationPage extends StatelessWidget {
             TextField(
               controller: idController,
               decoration: const InputDecoration(labelText: '아이디'),
+              onChanged: (value) {
+                validateInput(value);
+              },
+            ),
+            const Text(
+              '영어와 숫자만 입력 가능합니다.',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             TextField(
               controller: passwordController,
               decoration: const InputDecoration(labelText: '비밀번호'),
               obscureText: true,
+              onChanged: (value) {
+                validateInput(value);
+              },
+            ),
+            const Text(
+              '영어와 숫자만 입력 가능합니다.',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             TextField(
               controller: confirmPasswordController,
               decoration: const InputDecoration(labelText: '비밀번호 재입력'),
               obscureText: true,
+              onChanged: (value) {
+                validateInput(value);
+              },
+            ),
+            const Text(
+              '영어와 숫자만 입력 가능합니다.',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
