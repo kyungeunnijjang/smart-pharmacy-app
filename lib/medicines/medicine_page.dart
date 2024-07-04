@@ -8,7 +8,12 @@ class MedicinePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('약 구경'),
+        title: const Text('약 구경',
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 13, 7, 7),
+                fontFamily: "TEST")),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,7 +27,11 @@ class MedicinePage extends StatelessWidget {
             ),
             child: const Text(
               "감기약",
-              style: TextStyle(color: Colors.black, fontSize: 30),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "TEST"),
             ),
           ),
           const SizedBox(
@@ -43,7 +52,11 @@ class MedicinePage extends StatelessWidget {
                 ),
                 child: const Text(
                   "타이레놀",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "TEST"),
                 ),
               ),
               const SizedBox(

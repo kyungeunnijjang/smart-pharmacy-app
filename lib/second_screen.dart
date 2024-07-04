@@ -8,7 +8,12 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('처방전 없이 방문'),
+        title: const Text('처방전 없이 방문',
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 13, 7, 7),
+                fontFamily: "TEST")),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +33,11 @@ class SecondScreen extends StatelessWidget {
             ),
             child: const Text(
               "약 구경",
-              style: TextStyle(color: Colors.black, fontSize: 50),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "TEST"),
             ),
           ),
           const SizedBox(

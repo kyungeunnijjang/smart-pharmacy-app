@@ -11,7 +11,12 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: const Icon(Icons.car_crash),
-        title: const Text("방문 유형을 골라주세요"),
+        title: const Text("방문 유형을 골라주세요",
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 13, 7, 7),
+                fontFamily: "TEST")),
         actions: const [
           Icon(Icons.search),
         ],
@@ -35,7 +40,11 @@ class HomeScreen extends StatelessWidget {
               ),
               child: const Text(
                 "처방전 방문",
-                style: TextStyle(color: Colors.black, fontSize: 50),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 50,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "TEST"),
               ),
             ),
             const SizedBox(
@@ -53,7 +62,11 @@ class HomeScreen extends StatelessWidget {
               ),
               child: const Text(
                 "처방전 없이 방문",
-                style: TextStyle(color: Colors.black, fontSize: 50),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 50,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "TEST"),
               ),
             )
           ],
