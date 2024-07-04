@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 import 'sign_up_screen.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
