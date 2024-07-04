@@ -12,12 +12,40 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  void signUp(BuildContext context) async {
+  // 추가: ApiService에서 bool 함수 checkId를 이용하여 틀린 경우 팝업 창을 띄우는 부분
+  Future<void> CheckUsername(BuildContext context) async {}
+  Future<void> signUp(BuildContext context) async {
     String username = _idController.text;
     String password = _passwordController.text;
     String name = _nameController.text;
     String email = _emailController.text;
-    // try {
+    String passwordConfirm = _confirmPasswordController.text;
+    if (password != passwordConfirm) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '비밀번호가 다릅니다',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                    iconSize: 20,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.close))
+              ],
+            ),
+          );
+        },
+      );
+    }
+
     await ApiService().postUsers(
       username: username,
       password: password,
@@ -28,54 +56,9 @@ class SignUpPage extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
-    // } catch (e) {
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return Builder(
-    //         builder: (BuildContext context) {
-    //           return AlertDialog(
-    //             content: const Text('아이디 또는 비밀번호가 잘못되었습니다.'),
-    //             actions: [
-    //               TextButton(
-    //                 onPressed: () {
-    //                   Navigator.of(context).pop();
-    //                 },
-    //                 child: const Text('닫기'),
-    //               ),
-    //             ],
-    //           );
-    //         },
-    //       );
-    //     },
-    //   );
-    // }
+    return;
   }
 
-  // String? validateInput(String value) {
-  //   final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
-  //   if (!validCharacters.hasMatch(value)) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('입력 오류'),
-  //           content: const Text('영어와 숫자만 입력 가능합니다.'),
-  //           actions: [
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: const Text('닫기'),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //     return '영어와 숫자만 입력 가능합니다.';
-  //   }
-  //   return null;
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,9 +68,27 @@ class SignUpPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: _idController,
-                decoration: const InputDecoration(labelText: '아이디'),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _idController,
+                      decoration: const InputDecoration(labelText: '아이디'),
+                    ),
+                  ),
+                  ElevatedButton(
+                    // 추가: 중복 확인 버튼
+                    onPressed: () {
+                      CheckUsername(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      // 초록색 배경
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10), // 버튼 내부 padding
+                    ),
+                    child: const Text('중복 확인'),
+                  ),
+                ],
               ),
               const Text(
                 '영어와 숫자만 입력 가능합니다.',

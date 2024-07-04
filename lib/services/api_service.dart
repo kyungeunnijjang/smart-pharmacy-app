@@ -7,6 +7,44 @@ class ApiService {
   final String baseUrl = "http://192.168.0.90:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
+  Future<bool> checkId({
+    required username,
+  }) async {
+    final url = Uri.parse("$baseUrl/users/username/$username/");
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> postRefreshToken() async {
+    final url = Uri.parse("$baseUrl/users/refresh/");
+    String? refreshToken = await storage.read(key: 'refresh');
+    if (refreshToken == null) {
+      throw Exception('No refresh token found');
+    }
+    final response = await http.post(
+      url,
+      body: {
+        'refresh': refreshToken,
+      },
+    );
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+      try {
+        await storage.write(key: 'access', value: jsonData['access']);
+        await storage.write(key: 'refresh', value: jsonData['refresh']);
+        return true;
+      } catch (e) {
+        throw Exception('Failed to refresh token');
+      }
+    } else {
+      throw Exception('Failed to refresh token');
+    }
+  }
+
   Future<bool> postUsers({
     required username,
     required password,
