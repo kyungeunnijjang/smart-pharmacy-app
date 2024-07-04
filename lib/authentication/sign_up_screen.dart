@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/home/home_screen.dart';
 
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -11,18 +12,44 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  void signUp() async {
+  void signUp(BuildContext context) async {
     String username = _idController.text;
     String password = _passwordController.text;
     String name = _nameController.text;
     String email = _emailController.text;
-    final userToken = await ApiService().postUsers(
+    // try {
+    await ApiService().postUsers(
       username: username,
       password: password,
       name: name,
       email: email,
     );
-    print(userToken);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
+    // } catch (e) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return Builder(
+    //         builder: (BuildContext context) {
+    //           return AlertDialog(
+    //             content: const Text('아이디 또는 비밀번호가 잘못되었습니다.'),
+    //             actions: [
+    //               TextButton(
+    //                 onPressed: () {
+    //                   Navigator.of(context).pop();
+    //                 },
+    //                 child: const Text('닫기'),
+    //               ),
+    //             ],
+    //           );
+    //         },
+    //       );
+    //     },
+    //   );
+    // }
   }
 
   // String? validateInput(String value) {
@@ -80,6 +107,10 @@ class SignUpPage extends StatelessWidget {
                 decoration: const InputDecoration(labelText: '비밀번호 재입력'),
                 obscureText: true,
               ),
+              const Text(
+                '영어와 숫자만 입력 가능합니다.',
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
               TextField(
                 controller: _nameController,
                 decoration: const InputDecoration(labelText: '이름'),
@@ -88,13 +119,11 @@ class SignUpPage extends StatelessWidget {
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: '이메일'),
               ),
-              const Text(
-                '영어와 숫자만 입력 가능합니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: signUp,
+                onPressed: () {
+                  signUp(context);
+                },
                 child: const Text('회원 가입'),
               ),
             ],

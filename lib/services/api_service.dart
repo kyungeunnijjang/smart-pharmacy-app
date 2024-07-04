@@ -23,15 +23,15 @@ class ApiService {
         'email': email,
       },
     );
-    dynamic jsonData;
     if (response.statusCode == 200) {
-      jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+      print(jsonData);
       try {
-        UserModel.fromJson(jsonData);
+        postToken(username: username, password: password);
+        return true;
       } catch (e) {
-        throw Exception(e.toString());
+        throw Exception(e);
       }
-      return postToken(username: username, password: password);
     } else {
       throw Exception('Failed to load user');
     }
