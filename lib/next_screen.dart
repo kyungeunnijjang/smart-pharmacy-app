@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/no_page.dart';
-import 'package:pharmacy_app/doctor_page.dart';
-import 'package:pharmacy_app/recommend_page.dart';
-import 'package:pharmacy_app/medicine_page.dart';
+import 'package:pharmacy_app/medicines/medicine_page.dart';
 
 import 'dart:developer';
 import 'dart:io';
@@ -11,10 +8,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-void main() => runApp(const MaterialApp(home: NextScreen()));
-
-class NextScreen extends StatelessWidget {
-  const NextScreen({super.key});
+class QRScreen extends StatelessWidget {
+  const QRScreen({super.key});
 
   // This widget is the root of your application.
   @override
@@ -73,7 +68,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                 children: <Widget>[
                   if (result != null)
                     Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                        'Barcode Type: ${result!.format.name}   Data: ${result!.code}')
                   else
                     const Text('Scan a code'),
                   Row(
@@ -230,23 +225,6 @@ class SecondScreen extends StatelessWidget {
           ),
           const SizedBox(
             height: 50,
-          ),
-          ElevatedButton(
-            //약ㅊㅊ
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RecommendPage()));
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black,
-              backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-            ),
-            child: const Text(
-              "홈페이지 약 추천 구매",
-              style: TextStyle(color: Colors.black, fontSize: 50),
-            ),
           ),
           const SizedBox(
             height: 100,

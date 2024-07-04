@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/next_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +24,9 @@ class MainScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NextScreen()));
+                  context,
+                  MaterialPageRoute(builder: (context) => const QRScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.black,
@@ -43,9 +43,9 @@ class MainScreen extends StatelessWidget {
             OutlinedButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SecondScreen()));
+                  context,
+                  MaterialPageRoute(builder: (context) => const SecondScreen()),
+                );
               },
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color.fromARGB(255, 205, 218, 168),

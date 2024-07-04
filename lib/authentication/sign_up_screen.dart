@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'urls.dart' as urls;
+import '../urls.dart' as urls;
 import 'dart:convert';
 
 class SignUpPage extends StatelessWidget {

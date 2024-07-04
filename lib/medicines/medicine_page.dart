@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/info_page.dart';
+import 'package:pharmacy_app/medicines/medicine.dart';
 
 class MedicinePage extends StatelessWidget {
   const MedicinePage({super.key});
@@ -35,8 +35,7 @@ class MedicinePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const TylenolPage()),
+                    MaterialPageRoute(builder: (context) => const Medicine()),
                   );
                 },
                 style: OutlinedButton.styleFrom(

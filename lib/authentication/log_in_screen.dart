@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'main_screen.dart'; // FirstPage 클래스가 정의된 파일을 import
+import '../home/home_screen.dart'; // FirstPage 클래스가 정의된 파일을 import
 import 'sign_up_screen.dart';
 import 'package:http/http.dart' as http;
-import 'urls.dart' as urls;
+import '../urls.dart' as urls;
 
 // HPage 클래스가 정의된 파일을 import
 
