@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/no_page.dart';
 //import 'package:pharmacy_app/doctor_page.dart';
 import 'package:pharmacy_app/recommend_page.dart';
 
@@ -216,7 +215,7 @@ class SecondScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MedicinePage()));
+                      builder: (context) => const medicine()));
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black,

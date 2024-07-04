@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'first_page.dart'; // FirstPage 클래스가 정의된 파일을 import
-import 'H_page.dart'; // HPage 클래스가 정의된 파일을 import
+import 'sign_up_page.dart'; // HPage 클래스가 정의된 파일을 import
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
