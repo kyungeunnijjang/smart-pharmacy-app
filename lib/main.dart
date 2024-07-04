@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/login_page.dart';
+import 'package:pharmacy_app/LoginPage.dart';
 
 void main() {
   runApp(const MyApp());

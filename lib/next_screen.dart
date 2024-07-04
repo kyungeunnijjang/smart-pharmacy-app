@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:pharmacy_app/doctor_page.dart';
+import 'package:pharmacy_app/no_page.dart';
+import 'package:pharmacy_app/doctor_page.dart';
 import 'package:pharmacy_app/recommend_page.dart';
 import 'package:pharmacy_app/medicine_page.dart';
 
