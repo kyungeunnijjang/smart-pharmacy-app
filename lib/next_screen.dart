@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/no_page.dart';
-import 'package:pharmacy_app/doctor_page.dart';
 import 'package:pharmacy_app/recommend_page.dart';
 
 import 'dart:developer';
@@ -224,25 +223,6 @@ class SecondScreen extends StatelessWidget {
             ),
             child: const Text(
               "약 구경",
-              style: TextStyle(color: Colors.black, fontSize: 50),
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          ElevatedButton(
-            //진단하기
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DoctorPage()));
-            },
-
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black,
-              backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-            ),
-            child: const Text(
-              "진단하기",
               style: TextStyle(color: Colors.black, fontSize: 50),
             ),
           ),
