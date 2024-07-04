@@ -1,51 +1,28 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../home/home_screen.dart'; // FirstPage 클래스가 정의된 파일을 import
+import 'package:pharmacy_app/services/api_service.dart';
 import 'sign_up_screen.dart';
-import 'package:http/http.dart' as http;
-import '../urls.dart' as urls;
-
-// HPage 클래스가 정의된 파일을 import
 
 class LogInScreen extends StatelessWidget {
-  const LogInScreen({super.key});
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
+  LogInScreen({super.key});
   final TextEditingController _idController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
 
-  void loginPressed() async {
-    String id = _idController.text;
+  void _loginPressed(BuildContext context) async {
+    String username = _idController.text;
     String password = _passwordController.text;
-
-    String apiUrl = '${SignUpPage.baseURL}/api/v1/users/token/';
-
-    Future<void> saveData(response) async {
-      _prefs.setString('refresh', response.body);
-      _prefs.setString("access", response.body);
-    }
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {'Content-Type': 'application/json'},
-      body: utf8.encode(jsonEncode({
-        'username': id,
-        'password': password,
-      })),
-    );
-
-    if (response.statusCode == 200) {
-      Navigator.of(context).pop();
-    } else {
+    try {
+      final userToken = await ApiService().postToken(
+        username: username,
+        password: password,
+      );
+      // GPT 너가 만들코드
+    } catch (e) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('로그인 실패'),
-            content: Text('오류: ${response.body}'),
+            content: const Text('아이디 또는 비밀번호가 잘못되었습니다.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -60,10 +37,12 @@ class LogInScreen extends StatelessWidget {
     }
   }
 
-  void signUpPressed() {
+  void _signUpPressed(BuildContext context) {
+    // context를 매개변수로 추가
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SignUpPage()),
+      MaterialPageRoute(builder: (context) => SignUpPage()),
     );
   }
 
@@ -89,12 +68,12 @@ class LogInScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: loginPressed,
+              onPressed: () => _loginPressed(context), // context 전달
               child: const Text('로그인'),
             ),
             const SizedBox(height: 20),
             TextButton(
-              onPressed: signUpPressed,
+              onPressed: () => _signUpPressed(context), // context 전달
               child: const Text('회원가입'),
             ),
           ],
