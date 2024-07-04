@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PurchasePage extends StatefulWidget {
+class InventoryScreen extends StatefulWidget {
   final List<Map<String, String>> cartItems;
 
-  const PurchasePage({super.key, required this.cartItems});
+  const InventoryScreen({super.key, required this.cartItems});
 
   @override
-  State<PurchasePage> createState() => _PurchasePageState();
+  State<InventoryScreen> createState() => _InventoryScreenState();
 }
 
-class _PurchasePageState extends State<PurchasePage> {
+class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/next_screen.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
