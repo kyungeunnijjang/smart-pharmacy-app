@@ -1,87 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import '../urls.dart' as urls;
-import 'dart:convert';
+
+import 'package:pharmacy_app/services/api_service.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
-  static const baseURL = urls.baseURL;
+  SignUpPage({super.key});
+  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
+  void signUp() async {
+    String username = _idController.text;
+    String password = _passwordController.text;
+    String name = _nameController.text;
+    String email = _emailController.text;
+    final userToken = await ApiService().postUsers(
+      username: username,
+      password: password,
+      name: name,
+      email: email,
+    );
+    print(userToken);
+  }
+
+  // String? validateInput(String value) {
+  //   final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
+  //   if (!validCharacters.hasMatch(value)) {
+  //     showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           title: const Text('입력 오류'),
+  //           content: const Text('영어와 숫자만 입력 가능합니다.'),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: const Text('닫기'),
+  //             ),
+  //           ],
+  //         );
+  //       },
+  //     );
+  //     return '영어와 숫자만 입력 가능합니다.';
+  //   }
+  //   return null;
+  // }
   @override
   Widget build(BuildContext context) {
-    final TextEditingController idController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-
-    void signUp() async {
-      String username = idController.text;
-      String password = passwordController.text;
-      String name = nameController.text;
-      String email = emailController.text;
-      String apiUrl = '$baseURL/api/v1/users/';
-
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: utf8.encode(jsonEncode({
-          'username': username,
-          'password': password,
-          'name': name,
-          'email': email,
-        })),
-      );
-
-      if (response.statusCode == 200) {
-        Navigator.of(context).pop();
-      } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('회원가입 실패'),
-              content: Text('오류: ${response.body}'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('닫기'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-
-    // String? validateInput(String value) {
-    //   final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
-    //   if (!validCharacters.hasMatch(value)) {
-    //     showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) {
-    //         return AlertDialog(
-    //           title: const Text('입력 오류'),
-    //           content: const Text('영어와 숫자만 입력 가능합니다.'),
-    //           actions: [
-    //             TextButton(
-    //               onPressed: () {
-    //                 Navigator.of(context).pop();
-    //               },
-    //               child: const Text('닫기'),
-    //             ),
-    //           ],
-    //         );
-    //       },
-    //     );
-    //     return '영어와 숫자만 입력 가능합니다.';
-    //   }
-    //   return null;
-    // }
-
     return Scaffold(
       appBar: AppBar(title: const Text('회원가입')),
       body: SingleChildScrollView(
@@ -90,7 +59,7 @@ class SignUpPage extends StatelessWidget {
           child: Column(
             children: [
               TextField(
-                controller: idController,
+                controller: _idController,
                 decoration: const InputDecoration(labelText: '아이디'),
               ),
               const Text(
@@ -98,7 +67,7 @@ class SignUpPage extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 12),
               ),
               TextField(
-                controller: passwordController,
+                controller: _passwordController,
                 decoration: const InputDecoration(labelText: '비밀번호'),
                 obscureText: true,
               ),
@@ -107,16 +76,16 @@ class SignUpPage extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 12),
               ),
               TextField(
-                controller: confirmPasswordController,
+                controller: _confirmPasswordController,
                 decoration: const InputDecoration(labelText: '비밀번호 재입력'),
                 obscureText: true,
               ),
               TextField(
-                controller: nameController,
+                controller: _nameController,
                 decoration: const InputDecoration(labelText: '이름'),
               ),
               TextField(
-                controller: emailController,
+                controller: _emailController,
                 decoration: const InputDecoration(labelText: '이메일'),
               ),
               const Text(
