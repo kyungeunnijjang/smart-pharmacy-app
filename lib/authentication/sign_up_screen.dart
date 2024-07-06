@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/home/home_screen.dart';
 
 import 'package:pharmacy_app/services/api_service.dart';
@@ -110,7 +111,7 @@ class SignUpPage extends StatelessWidget {
             children: [
               _header(context),
               _inputField(context),
-              _signup(context),
+              _login(context),
             ],
           ),
         ),
@@ -135,7 +136,6 @@ class SignUpPage extends StatelessWidget {
 
   _inputField(context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           children: [
@@ -230,13 +230,9 @@ class SignUpPage extends StatelessWidget {
               filled: true,
               prefixIcon: const Icon(Icons.email)),
         ),
-      ],
-    );
-  }
-
-  _signup(context) {
-    return Column(
-      children: [
+        const SizedBox(
+          height: 20,
+        ),
         ElevatedButton(
           onPressed: () {
             signUp(context);
@@ -252,6 +248,29 @@ class SignUpPage extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
+      ],
+    );
+  }
+
+  _login(context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("이미 계정이 있으신가요?"),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LogInScreen()));
+              },
+              child: const Text(
+                "로그인",
+                style: TextStyle(color: Colors.green),
+              ),
+            )
+          ],
+        )
       ],
     );
   }
