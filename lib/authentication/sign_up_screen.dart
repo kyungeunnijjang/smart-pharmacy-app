@@ -12,70 +12,91 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  void signUp(BuildContext context) async {
+  Future<void> CheckUsername(BuildContext context) async {
+    String username = _idController.text;
+    if (await ApiService().checkId(username: username)) {
+      // Username is available, proceed with sign up
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text('사용 가능한 아이디입니다.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('확인'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text('이미 사용 중인 아이디입니다.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('확인'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> signUp(BuildContext context) async {
     String username = _idController.text;
     String password = _passwordController.text;
     String name = _nameController.text;
     String email = _emailController.text;
-    // try {
+    String passwordConfirm = _confirmPasswordController.text;
     await ApiService().postUsers(
       username: username,
       password: password,
       name: name,
       email: email,
     );
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-    );
-    // } catch (e) {
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return Builder(
-    //         builder: (BuildContext context) {
-    //           return AlertDialog(
-    //             content: const Text('아이디 또는 비밀번호가 잘못되었습니다.'),
-    //             actions: [
-    //               TextButton(
-    //                 onPressed: () {
-    //                   Navigator.of(context).pop();
-    //                 },
-    //                 child: const Text('닫기'),
-    //               ),
-    //             ],
-    //           );
-    //         },
-    //       );
-    //     },
-    //   );
-    // }
+    if (password != passwordConfirm) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '비밀번호가 다릅니다',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                    iconSize: 20,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.close))
+              ],
+            ),
+          );
+        },
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      return;
+    }
   }
 
-  // String? validateInput(String value) {
-  //   final validCharacters = RegExp(r'^[a-zA-Z0-9]+$');
-  //   if (!validCharacters.hasMatch(value)) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('입력 오류'),
-  //           content: const Text('영어와 숫자만 입력 가능합니다.'),
-  //           actions: [
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: const Text('닫기'),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //     return '영어와 숫자만 입력 가능합니다.';
-  //   }
-  //   return null;
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,9 +106,24 @@ class SignUpPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              TextField(
-                controller: _idController,
-                decoration: const InputDecoration(labelText: '아이디'),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _idController,
+                      decoration: const InputDecoration(labelText: '아이디'),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      CheckUsername(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    ),
+                    child: const Text('중복 확인'),
+                  ),
+                ],
               ),
               const Text(
                 '영어와 숫자만 입력 가능합니다.',
