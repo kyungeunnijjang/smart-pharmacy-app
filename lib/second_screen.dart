@@ -40,12 +40,6 @@ class SecondScreen extends StatelessWidget {
                   fontFamily: "TEST"),
             ),
           ),
-          const SizedBox(
-            height: 50,
-          ),
-          const SizedBox(
-            height: 100,
-          ),
           const Align(
             alignment: Alignment.bottomRight,
           ),

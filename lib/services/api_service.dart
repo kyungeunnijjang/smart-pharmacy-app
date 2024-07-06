@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
 class ApiService {
-  final String baseUrl = "http://192.168.0.90:8000/api/v1";
+  final String baseUrl = "http://192.168.0.1:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
   Future<bool> postUsers({
@@ -62,5 +62,20 @@ class ApiService {
     } else {
       throw Exception('Failed to load user');
     }
+  }
+
+  Future<List<MedicineTinyModel>> getMedicineTinyList() async {
+    List<MedicineTinyModel> medicineTinyModels = [];
+    final url = Uri.parse("$baseUrl/medicines/");
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final List<dynamic> medicines =
+          jsonDecode(utf8.decode(response.bodyBytes));
+      for (var medicine in medicines) {
+        medicineTinyModels.add(MedicineTinyModel.fromJson(medicine));
+      }
+      return medicineTinyModels;
+    }
+    throw Exception('Failed to load medicine');
   }
 }

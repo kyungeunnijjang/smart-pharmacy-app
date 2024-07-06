@@ -8,16 +8,29 @@ class TokenModel {
 }
 
 class UserModel {
-  final String last_login;
+  final String lastLogin;
   final String username;
   final String email;
-  final String date_joined;
+  final String dateJoined;
   final String name;
 
   UserModel.fromJson(Map<String, dynamic> json)
-      : last_login = json['last_login'],
+      : lastLogin = json['last_login'],
         username = json['username'],
         email = json['email'],
-        date_joined = json['data_joined'],
+        dateJoined = json['data_joined'],
         name = json['name'];
+}
+
+class MedicineTinyModel {
+  final int id;
+  final String name;
+  final String company;
+  final int price;
+
+  MedicineTinyModel.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        company = json['company'],
+        price = json['price'];
 }
