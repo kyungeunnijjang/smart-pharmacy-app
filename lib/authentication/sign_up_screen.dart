@@ -143,13 +143,14 @@ class SignUpPage extends StatelessWidget {
               child: TextField(
                 controller: _idController,
                 decoration: InputDecoration(
-                    hintText: "아이디",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.green.withOpacity(0.1),
-                    filled: true,
-                    prefixIcon: const Icon(Icons.person)),
+                  hintText: "아이디",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      borderSide: BorderSide.none),
+                  fillColor: Colors.green.withOpacity(0.1),
+                  filled: true,
+                  prefixIcon: const Icon(Icons.person),
+                ),
               ),
             ),
             const SizedBox(
@@ -160,7 +161,9 @@ class SignUpPage extends StatelessWidget {
                 CheckUsername(context);
               },
               style: ElevatedButton.styleFrom(
-                shape: const StadiumBorder(),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 backgroundColor: Colors.green,
               ),
