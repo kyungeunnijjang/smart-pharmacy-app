@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
 class ApiService {
-  final String baseUrl = "http://192.168.0.90:8000/api/v1";
+  final String baseUrl = "http://192.168.0.1:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
   Future<bool> checkId({
@@ -13,9 +13,11 @@ class ApiService {
     final url = Uri.parse("$baseUrl/users/username/$username/");
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      return true;
+      return false; // Change return value to false
+    } else if (response.statusCode == 204) {
+      return true; // Add condition to return true for status code 204
     } else {
-      return false;
+      return false; // Default to returning false
     }
   }
 

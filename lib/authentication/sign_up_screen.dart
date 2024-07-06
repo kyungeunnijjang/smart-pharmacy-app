@@ -12,14 +12,58 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  // 추가: ApiService에서 bool 함수 checkId를 이용하여 틀린 경우 팝업 창을 띄우는 부분
-  Future<void> CheckUsername(BuildContext context) async {}
+  Future<void> CheckUsername(BuildContext context) async {
+    String username = _idController.text;
+    if (await ApiService().checkId(username: username)) {
+      // Username is available, proceed with sign up
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text('사용 가능한 아이디입니다.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('확인'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text('이미 사용 중인 아이디입니다.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('확인'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   Future<void> signUp(BuildContext context) async {
     String username = _idController.text;
     String password = _passwordController.text;
     String name = _nameController.text;
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
+    await ApiService().postUsers(
+      username: username,
+      password: password,
+      name: name,
+      email: email,
+    );
     if (password != passwordConfirm) {
       showDialog(
         context: context,
@@ -44,19 +88,13 @@ class SignUpPage extends StatelessWidget {
           );
         },
       );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      return;
     }
-
-    await ApiService().postUsers(
-      username: username,
-      password: password,
-      name: name,
-      email: email,
-    );
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-    );
-    return;
   }
 
   @override
@@ -77,14 +115,11 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    // 추가: 중복 확인 버튼
                     onPressed: () {
                       CheckUsername(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      // 초록색 배경
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10), // 버튼 내부 padding
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                     ),
                     child: const Text('중복 확인'),
                   ),
