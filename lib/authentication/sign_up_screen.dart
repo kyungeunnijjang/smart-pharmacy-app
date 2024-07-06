@@ -111,7 +111,14 @@ class SignUpPage extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: _idController,
-                      decoration: const InputDecoration(labelText: '아이디'),
+                      decoration: InputDecoration(
+                          hintText: "아이디",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(18),
+                              borderSide: BorderSide.none),
+                          fillColor: Colors.green.withOpacity(0.1),
+                          filled: true,
+                          prefixIcon: const Icon(Icons.person)),
                     ),
                   ),
                   ElevatedButton(
@@ -131,7 +138,14 @@ class SignUpPage extends StatelessWidget {
               ),
               TextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: '비밀번호'),
+                decoration: InputDecoration(
+                    hintText: "비밀번호",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.green.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.password)),
                 obscureText: true,
               ),
               const Text(
@@ -140,7 +154,14 @@ class SignUpPage extends StatelessWidget {
               ),
               TextField(
                 controller: _confirmPasswordController,
-                decoration: const InputDecoration(labelText: '비밀번호 재입력'),
+                decoration: InputDecoration(
+                    hintText: "비밀번호 재입력",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.green.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.password)),
                 obscureText: true,
               ),
               const Text(
@@ -149,11 +170,26 @@ class SignUpPage extends StatelessWidget {
               ),
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: '이름'),
+                decoration: InputDecoration(
+                    hintText: "이름",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.green.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.person)),
               ),
+              const SizedBox(height: 20),
               TextField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: '이메일'),
+                decoration: InputDecoration(
+                    hintText: "이메일",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.green.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.email)),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
