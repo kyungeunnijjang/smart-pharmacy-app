@@ -100,78 +100,50 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('회원가입')),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          height: MediaQuery.of(context).size.height - 50,
+          width: double.infinity,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _idController,
-                      decoration: InputDecoration(
-                          hintText: "아이디",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(18),
-                              borderSide: BorderSide.none),
-                          fillColor: Colors.green.withOpacity(0.1),
-                          filled: true,
-                          prefixIcon: const Icon(Icons.person)),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      CheckUsername(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                    ),
-                    child: const Text('중복 확인'),
-                  ),
-                ],
-              ),
-              const Text(
-                '영어와 숫자만 입력 가능합니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-              TextField(
-                controller: _passwordController,
+              _header(context),
+              _inputField(context),
+              _signup(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  _header(context) {
+    return const Column(
+      children: [
+        Text(
+          "회원가입",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text("가입 정보를 입력하세요"),
+      ],
+    );
+  }
+
+  _inputField(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _idController,
                 decoration: InputDecoration(
-                    hintText: "비밀번호",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.green.withOpacity(0.1),
-                    filled: true,
-                    prefixIcon: const Icon(Icons.password)),
-                obscureText: true,
-              ),
-              const Text(
-                '영어와 숫자만 입력 가능합니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-              TextField(
-                controller: _confirmPasswordController,
-                decoration: InputDecoration(
-                    hintText: "비밀번호 재입력",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.green.withOpacity(0.1),
-                    filled: true,
-                    prefixIcon: const Icon(Icons.password)),
-                obscureText: true,
-              ),
-              const Text(
-                '영어와 숫자만 입력 가능합니다.',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
-              ),
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                    hintText: "이름",
+                    hintText: "아이디",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
                         borderSide: BorderSide.none),
@@ -179,29 +151,108 @@ class SignUpPage extends StatelessWidget {
                     filled: true,
                     prefixIcon: const Icon(Icons.person)),
               ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                    hintText: "이메일",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(18),
-                        borderSide: BorderSide.none),
-                    fillColor: Colors.green.withOpacity(0.1),
-                    filled: true,
-                    prefixIcon: const Icon(Icons.email)),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                CheckUsername(context);
+              },
+              style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                backgroundColor: Colors.green,
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  signUp(context);
-                },
-                child: const Text('회원 가입'),
+              child: const Text(
+                "중복확인",
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
-            ],
+            ),
+          ],
+        ),
+        const Text(
+          '영어와 숫자만 입력 가능합니다.',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+        TextField(
+          controller: _passwordController,
+          decoration: InputDecoration(
+              hintText: "비밀번호",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Colors.green.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.password)),
+          obscureText: true,
+        ),
+        const Text(
+          '영어와 숫자만 입력 가능합니다.',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+        TextField(
+          controller: _confirmPasswordController,
+          decoration: InputDecoration(
+              hintText: "비밀번호 재입력",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Colors.green.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.password)),
+          obscureText: true,
+        ),
+        const Text(
+          '영어와 숫자만 입력 가능합니다.',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+        TextField(
+          controller: _nameController,
+          decoration: InputDecoration(
+              hintText: "이름",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Colors.green.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.person)),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: _emailController,
+          decoration: InputDecoration(
+              hintText: "이메일",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(18),
+                  borderSide: BorderSide.none),
+              fillColor: Colors.green.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.email)),
+        ),
+      ],
+    );
+  }
+
+  _signup(context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            signUp(context);
+          },
+          style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: Colors.green,
+            minimumSize: const Size(double.infinity, 0),
+          ),
+          child: const Text(
+            "회원가입",
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
-      ),
+      ],
     );
   }
 }

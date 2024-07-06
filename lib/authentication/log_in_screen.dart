@@ -74,36 +74,94 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('로그인'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        margin: const EdgeInsets.all(24),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextField(
-              controller: _idController,
-              decoration: const InputDecoration(labelText: '아이디'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: '비밀번호'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _loginPressed(context), // context 전달
-              child: const Text('로그인'),
-            ),
-            const SizedBox(height: 20),
-            TextButton(
-              onPressed: () => _signUpPressed(context), // context 전달
-              child: const Text('회원가입'),
-            ),
+            _header(context),
+            _inputField(context),
+            _signup(context),
           ],
         ),
       ),
+    );
+  }
+
+  _header(context) {
+    return const Column(
+      children: [
+        Text(
+          "로그인",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text("로그인 정보를 입력하세요"),
+      ],
+    );
+  }
+
+  _inputField(context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      TextField(
+        controller: _idController,
+        decoration: InputDecoration(
+            hintText: "아이디",
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+                borderSide: BorderSide.none),
+            fillColor: Colors.green.withOpacity(0.1),
+            filled: true,
+            prefixIcon: const Icon(Icons.person)),
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+      TextField(
+        controller: _passwordController,
+        decoration: InputDecoration(
+            hintText: "비밀번호",
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+                borderSide: BorderSide.none),
+            fillColor: Colors.green.withOpacity(0.1),
+            filled: true,
+            prefixIcon: const Icon(Icons.password)),
+        obscureText: true,
+      ),
+      const SizedBox(
+        height: 20,
+      ),
+      ElevatedButton(
+        onPressed: () => _loginPressed(context),
+        style: ElevatedButton.styleFrom(
+          shape: const StadiumBorder(),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          backgroundColor: Colors.green,
+        ),
+        child: const Text(
+          "로그인",
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+      ),
+    ]);
+  }
+
+  _signup(context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("계정이 없으신가요? "),
+        TextButton(
+          onPressed: () => _signUpPressed(context),
+          child: const Text(
+            "가입하기",
+            style: TextStyle(color: Colors.green),
+          ),
+        )
+      ],
     );
   }
 }
