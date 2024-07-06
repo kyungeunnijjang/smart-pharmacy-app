@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/medicines/medicine.dart';
+import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -11,21 +11,11 @@ class MedicinePage extends StatefulWidget {
 }
 
 class _MedicinePageState extends State<MedicinePage> {
-  late Future<List<MedicineTinyModel>> _medicinesFutre =
-      ApiService().getMedicineTinyList();
+  late Future<List<MedicineTinyModel>> _medicinesFutre;
 
   final List<String> categories = ['감기약', '영양제', '위염약', '한약', '연고', '기타'];
 
   String selectedCategory = '감기약';
-
-  // final List<Map<String, String>> items = [
-  //   {'name': '마데카솔', 'description': '상처 치료제'},
-  //   {'name': '타이레놀', 'description': '진통제'},
-  //   {'name': '판콜에이', 'description': '감기약'},
-  //   {'name': '비타민C', 'description': '영양제'},
-  //   {'name': '소화제', 'description': '소화불량 치료제'},
-  //   {'name': '후시딘', 'description': '항생제 연고'},
-  // ];
 
   @override
   void initState() {
