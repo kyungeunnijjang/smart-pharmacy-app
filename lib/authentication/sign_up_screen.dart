@@ -88,6 +88,13 @@ class SignUpPage extends StatelessWidget {
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
 
+    await ApiService().postUsers(
+      username: username,
+      password: password,
+      name: name,
+      email: email,
+    );
+
     if (username.isEmpty ||
         password.isEmpty ||
         name.isEmpty ||
