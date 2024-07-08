@@ -5,6 +5,7 @@ import 'package:pharmacy_app/home/home_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class SignUpPage extends StatelessWidget {
+  // 변수 추가
   SignUpPage({super.key});
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -17,36 +18,52 @@ class SignUpPage extends StatelessWidget {
     String username = _idController.text;
     if (await ApiService().checkId(username: username)) {
       // Username is available, proceed with sign up
+      // 변수 추가
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            content: const Text('사용 가능한 아이디입니다.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('확인'),
-              ),
-            ],
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '사용 가능한 아이디 입니다.',
+                  style: TextStyle(fontSize: 20),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('닫기'),
+                )
+              ],
+            ),
           );
         },
       );
     } else {
+      // 변수 추가
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            content: const Text('이미 사용 중인 아이디입니다.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('확인'),
-              ),
-            ],
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '이미 사용중인 아이디입니다.',
+                  style: TextStyle(fontSize: 20),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('닫기'),
+                )
+              ],
+            ),
           );
         },
       );
@@ -59,6 +76,36 @@ class SignUpPage extends StatelessWidget {
     String name = _nameController.text;
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
+    if (username.isEmpty ||
+        password.isEmpty ||
+        name.isEmpty ||
+        email.isEmpty ||
+        passwordConfirm.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  '모든 입력란을 채워주세요',
+                  style: TextStyle(fontSize: 20),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('닫기'),
+                )
+              ],
+            ),
+          );
+        },
+      );
+      return;
+    }
     await ApiService().postUsers(
       username: username,
       password: password,
@@ -78,12 +125,12 @@ class SignUpPage extends StatelessWidget {
                   '비밀번호가 다릅니다',
                   style: TextStyle(fontSize: 20),
                 ),
-                IconButton(
-                    iconSize: 20,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.close))
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('닫기'),
+                )
               ],
             ),
           );
@@ -164,7 +211,7 @@ class SignUpPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 backgroundColor: Colors.green,
               ),
               child: const Text(
@@ -233,8 +280,9 @@ class SignUpPage extends StatelessWidget {
               filled: true,
               prefixIcon: const Icon(Icons.email)),
         ),
-        const SizedBox(
-          height: 20,
+        const Text(
+          '--@--.---의 형식으로 작성해주세요.',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
         ),
         ElevatedButton(
           onPressed: () {
