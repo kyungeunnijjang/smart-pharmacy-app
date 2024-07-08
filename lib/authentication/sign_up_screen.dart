@@ -197,9 +197,9 @@ class SignUpPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _header(context),
-              _inputField(context),
-              _login(context),
+              _signheader(context),
+              _signinputField(context),
+              _signlogin(context),
             ],
           ),
         ),
@@ -207,7 +207,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _header(context) {
+  _signheader(context) {
     return const Column(
       children: [
         Text(
@@ -222,7 +222,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _inputField(context) {
+  _signinputField(context) {
     return Column(
       children: [
         Row(
@@ -344,7 +344,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _login(context) {
+  _signlogin(context) {
     return Column(
       children: [
         Row(
