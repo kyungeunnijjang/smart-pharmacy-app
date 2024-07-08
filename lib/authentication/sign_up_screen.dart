@@ -20,6 +20,11 @@ class SignUpPage extends StatelessWidget {
     return emailRegex.hasMatch(email);
   }
 
+  bool isValidName(String password) {
+    final RegExp passwordRegex = RegExp(r'^[a-zA-Z0-9]+$');
+    return passwordRegex.hasMatch(password);
+  }
+
   Future<void> CheckUsername(BuildContext context) async {
     String username = _idController.text;
     if (await ApiService().checkId(username: username)) {
@@ -82,19 +87,13 @@ class SignUpPage extends StatelessWidget {
     String name = _nameController.text;
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
-    if (isValidEmail(email)) {
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('유효하지 않은 이메일 주소'),
-        ),
-      );
-    }
+
     if (username.isEmpty ||
         password.isEmpty ||
         name.isEmpty ||
         email.isEmpty ||
         passwordConfirm.isEmpty) {
+      // 모든 칸을 입력하도록 메시지 표시
       showDialog(
         context: context,
         builder: (context) {
@@ -120,13 +119,9 @@ class SignUpPage extends StatelessWidget {
       );
       return;
     }
-    await ApiService().postUsers(
-      username: username,
-      password: password,
-      name: name,
-      email: email,
-    );
+
     if (password != passwordConfirm) {
+      // 비밀번호가 일치하지 않을 때 메시지 표시
       showDialog(
         context: context,
         builder: (context) {
@@ -150,13 +145,38 @@ class SignUpPage extends StatelessWidget {
           );
         },
       );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      // 올바른 이메일 형식이 아닐 때 메시지 표시
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('유효하지 않은 이메일 주소'),
+        ),
       );
       return;
     }
+
+    if (!isValidName(username) ||
+        !isValidName(password) ||
+        !isValidName(passwordConfirm)) {
+      // 올바른 이메일 형식이 아닐 때 메시지 표시
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('아이디와 비밀번호는 영어와 숫자로만 이루어져야 합니다.'),
+        ),
+      );
+      return;
+    }
+
+    // 모든 조건이 충족되면 HomeScreen으로 이동
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
+    );
   }
 
   @override
