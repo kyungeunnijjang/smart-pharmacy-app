@@ -14,6 +14,12 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
+  bool isValidEmail(String email) {
+    // 이메일 주소의 유효성을 확인하는 정규 표현식
+    final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(email);
+  }
+
   Future<void> CheckUsername(BuildContext context) async {
     String username = _idController.text;
     if (await ApiService().checkId(username: username)) {
@@ -76,6 +82,14 @@ class SignUpPage extends StatelessWidget {
     String name = _nameController.text;
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
+    if (isValidEmail(email)) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('유효하지 않은 이메일 주소'),
+        ),
+      );
+    }
     if (username.isEmpty ||
         password.isEmpty ||
         name.isEmpty ||
