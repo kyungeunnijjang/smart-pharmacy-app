@@ -23,41 +23,109 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('정보'),
+        title: const Text('약 정보'),
       ),
-      body: FutureBuilder(
-        future: _medicineFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final MedicineDetailModel medicine = snapshot.data!;
-            return RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  const TextSpan(
-                      text: '약 이름: ',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: '${medicine.name}\n'),
-                  TextSpan(
-                      text:
-                          '효능: ${medicine.efficacy}\n복용할 때 주의해야하는 음식: ${medicine.bewareFood}\n사용에 주의해야하는 사항: ${medicine.sideEffect}\n'),
-                  const TextSpan(
-                      text: '가격: ',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: '${medicine.price}'),
-                ],
-              ),
-            ); // Replace with your actual widget
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
+      body: SingleChildScrollView(
+        // Added SingleChildScrollView here
+        child: FutureBuilder(
+          future: _medicineFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              final MedicineDetailModel medicine = snapshot.data!;
+              return RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    const TextSpan(
+                        text: ' 약 이름: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        )),
+                    TextSpan(
+                        text: '${medicine.name}\n\n',
+                        style: const TextStyle(
+                            color: Colors.blue, fontSize: 25.0)),
+                    const TextSpan(
+                        text: ' 효능:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 23.0,
+                        )),
+                    TextSpan(
+                        text: ' ${medicine.efficacy}\n',
+                        style: const TextStyle(fontSize: 18.0)),
+                    const TextSpan(
+                      text: ' 복용할 때 ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    const TextSpan(
+                      text: '주의',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          color: Colors.red),
+                    ),
+                    const TextSpan(
+                      text: '해야하는 음식: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' ${medicine.bewareFood}\n',
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                    const TextSpan(
+                      text: ' 사용에 ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    const TextSpan(
+                      text: '주의',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          color: Colors.red),
+                    ),
+                    const TextSpan(
+                      text: '해야하는 사항: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' ${medicine.sideEffect}\n',
+                      style: const TextStyle(fontSize: 18.0),
+                    ),
+                    const TextSpan(
+                        text: ' 가격: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 30.0)),
+                    TextSpan(
+                        text: ' ${medicine.price}원',
+                        style: const TextStyle(fontSize: 25.0)),
+                  ],
+                ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            // Add a default return statement
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Text('Unable to load data'),
             );
-          }
-          // Add a default return statement
-          return const Center(
-            child: Text('Unable to load data'),
-          );
-        },
+          },
+        ),
       ),
     );
   }

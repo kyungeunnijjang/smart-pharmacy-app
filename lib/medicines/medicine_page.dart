@@ -105,11 +105,6 @@ class _MedicinePageState extends State<MedicinePage> {
                                 style: const TextStyle(fontSize: 16.0),
                               ),
                               const SizedBox(height: 8.0),
-                              Text(
-                                medicines[index].name,
-                                style: const TextStyle(
-                                    fontSize: 12.0, color: Colors.grey),
-                              ),
                             ],
                           ),
                         );
