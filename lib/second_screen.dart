@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
-import 'package:pharmacy_app/homrpage/homepage_screen.dart';
+import 'package:pharmacy_app/inventories/homepage_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_page.dart';
 
 class SecondScreen extends StatelessWidget {
@@ -86,7 +86,7 @@ _secondbutton(context) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const homepageScreen()),
+            MaterialPageRoute(builder: (context) => const InventoryScreen()),
           );
         },
         style: ElevatedButton.styleFrom(
