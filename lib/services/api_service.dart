@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
@@ -115,6 +116,16 @@ class ApiService {
         medicineTinyModels.add(MedicineTinyModel.fromJson(medicine));
       }
       return medicineTinyModels;
+    }
+    throw Exception('Failed to load medicine');
+  }
+
+  Future<MedicineDetailModel> getMedicineDetail(int id) async {
+    final url = Uri.parse("$baseUrl/medicines/$id/");
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final medicine = jsonDecode(utf8.decode(response.bodyBytes));
+      return MedicineDetailModel.fromJson(medicine);
     }
     throw Exception('Failed to load medicine');
   }
