@@ -67,8 +67,6 @@ class ApiService {
     );
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-
-      print(jsonData);
       try {
         postToken(username: username, password: password);
         return true;
@@ -107,13 +105,14 @@ class ApiService {
     }
   }
 
-  Future<List<MedicineTinyModel>> getMedicineTinyList() async {
-    int page = 100;
-    String search = "";
+  Future<List<MedicineTinyModel>> getMedicineTinyList({
+    int page = 1,
+    String search = "",
+  }) async {
     List<MedicineTinyModel> medicineTinyModels = [];
     Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=$page");
-    if (search != "") {
-      urlAddress = Uri.parse("$baseUrl/medicines/?page=1$search");
+    if (search.isNotEmpty) {
+      urlAddress = Uri.parse("$baseUrl/medicines/?page=$page&search=$search");
     }
     final response = await http.get(urlAddress);
     if (response.statusCode == 200) {

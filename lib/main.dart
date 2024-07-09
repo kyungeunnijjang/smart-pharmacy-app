@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/home/home_screen.dart';
+import 'package:pharmacy_app/purchase_widget.dart';
 
 void main() {
   runApp(const MyApp());
