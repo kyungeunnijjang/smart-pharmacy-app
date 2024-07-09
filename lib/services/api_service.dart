@@ -105,9 +105,10 @@ class ApiService {
     }
   }
 
-  Future<List<MedicineTinyModel>> getMedicineTinyList() async {
-    int page = 100;
-    String search = "";
+  Future<List<MedicineTinyModel>> getMedicineTinyList({
+    int page = 1,
+    String search = "",
+  }) async {
     List<MedicineTinyModel> medicineTinyModels = [];
     Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=$page");
     if (search != "") {
