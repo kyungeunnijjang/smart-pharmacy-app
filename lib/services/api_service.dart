@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:pharmacy_app/models/inventories_model.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
@@ -23,7 +24,7 @@ class ApiService {
   }
 
   Future<bool> postRefreshToken() async {
-    final url = Uri.parse("$baseUrl/users/refresh/");
+    final url = Uri.parse("$baseUrl/users/token/refresh/");
     String? refreshToken = await storage.read(key: 'refresh');
     if (refreshToken == null) {
       throw Exception('No refresh token found');
@@ -66,7 +67,6 @@ class ApiService {
     );
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
-      print(jsonData);
       try {
         postToken(username: username, password: password);
         return true;
@@ -132,6 +132,30 @@ class ApiService {
     if (response.statusCode == 200) {
       final medicine = jsonDecode(utf8.decode(response.bodyBytes));
       return MedicineDetailModel.fromJson(medicine);
+    }
+    throw Exception('Failed to load medicine');
+  }
+
+  Future<List<InventoriesModel>> getInventoryTinyModels() async {
+    List<InventoriesModel> inventoryTinyModels = [];
+    final url = Uri.parse("$baseUrl/inventories/");
+    print(await storage.read(key: 'access'));
+    final response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> inventories =
+          jsonDecode(utf8.decode(response.bodyBytes));
+      for (var inventory in inventories) {
+        inventoryTinyModels.add(InventoriesModel.fromJson(inventory));
+      }
+      return inventoryTinyModels;
+    } else if (response.statusCode == 403) {
+      await postRefreshToken();
+      return await getInventoryTinyModels();
     }
     throw Exception('Failed to load medicine');
   }
