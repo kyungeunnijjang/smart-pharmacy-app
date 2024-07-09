@@ -109,6 +109,8 @@ class ApiService {
     int page = 1,
     String search = "",
   }) async {
+    int page = 1;
+    String search = "";
     List<MedicineTinyModel> medicineTinyModels = [];
     Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=$page");
     if (search != "") {
