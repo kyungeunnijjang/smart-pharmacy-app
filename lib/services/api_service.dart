@@ -106,9 +106,14 @@ class ApiService {
   }
 
   Future<List<MedicineTinyModel>> getMedicineTinyList() async {
+    int page = 1;
+    String search = "";
     List<MedicineTinyModel> medicineTinyModels = [];
-    final url = Uri.parse("$baseUrl/medicines/");
-    final response = await http.get(url);
+    Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=1");
+    if (search != "") {
+        urlAddress = Uri.parse("$baseUrl/medicines/?page=1$search");
+    }
+    final response = await http.get(urlAddress);
     if (response.statusCode == 200) {
       final List<dynamic> medicines =
           jsonDecode(utf8.decode(response.bodyBytes));

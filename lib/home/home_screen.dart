@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/next_screen.dart';
-import 'package:pharmacy_app/second_screen.dart';
+// import 'package:pharmacy_app/second_screen.dart';
+import 'package:pharmacy_app/medicines/medicine_page.dart';
+import 'package:pharmacy_app/inventories/homepage_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -83,7 +85,7 @@ _loginbutton(context) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SecondScreen()),
+            MaterialPageRoute(builder: (context) => const MedicinePage()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -95,7 +97,34 @@ _loginbutton(context) {
           minimumSize: const Size(double.infinity, 0),
         ),
         child: const Text(
-          "처방전 없이 방문",
+          "약 구경",
+          style: TextStyle(
+              fontSize: 30,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontFamily: "TEST"),
+        ),
+      ),
+      const SizedBox(
+        height: 80,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const InventoryScreen()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          backgroundColor: Colors.white,
+          minimumSize: const Size(double.infinity, 0),
+        ),
+        child: const Text(
+          "홈페이지",
           style: TextStyle(
               fontSize: 30,
               color: Colors.black,
