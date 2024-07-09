@@ -18,6 +18,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
     _inventoriesFuture = ApiService().getInventoryTinyModels();
   }
 
+  int getQuantityAsInt(int index, List<InventoriesModel> inventories) {
+    return inventories[index].quantity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,14 +64,42 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           onTap: () {
                             //구매 추가추가
                           },
-                          child: Column(
-                            children: [
-                              Text(
-                                inventories[index].medicineName,
-                                style: const TextStyle(fontSize: 16.0),
-                              ),
-                              const SizedBox(height: 8.0),
-                            ],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 1.0),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .center, // Align children in the center horizontally
+                              children: [
+                                Text(
+                                  inventories[index].medicineName,
+                                  style: const TextStyle(fontSize: 16.0),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.remove),
+                                      onPressed: () {
+                                        // Decrease quantity
+                                      },
+                                    ),
+                                    Text(
+                                      getQuantityAsInt(index, inventories)
+                                          .toString(),
+                                      style: const TextStyle(fontSize: 16.0),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.add),
+                                      onPressed: () {
+                                        // Increase quantity
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
