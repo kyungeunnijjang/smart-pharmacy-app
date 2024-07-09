@@ -1,12 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:pharmacy_app/models/inventories_model.dart';
+import 'package:pharmacy_app/models/inventory.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
 class ApiService {
-  final String baseUrl = "http://192.168.0.152:8000/api/v1";
+  final String baseUrl = "http://192.168.219.149:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
   Future<bool> checkId({
@@ -137,10 +137,9 @@ class ApiService {
     throw Exception('Failed to load medicine');
   }
 
-  Future<List<InventoriesModel>> getInventoryTinyModels() async {
-    List<InventoriesModel> inventoryTinyModels = [];
+  Future<List<InventoryModel>> getInventories() async {
+    List<InventoryModel> inventoryTinyModels = [];
     final url = Uri.parse("$baseUrl/inventories/");
-    print(await storage.read(key: 'access'));
     final response = await http.get(
       url,
       headers: {
@@ -151,13 +150,58 @@ class ApiService {
       final List<dynamic> inventories =
           jsonDecode(utf8.decode(response.bodyBytes));
       for (var inventory in inventories) {
-        inventoryTinyModels.add(InventoriesModel.fromJson(inventory));
+        inventoryTinyModels.add(InventoryModel.fromJson(inventory));
       }
       return inventoryTinyModels;
     } else if (response.statusCode == 403) {
       await postRefreshToken();
-      return await getInventoryTinyModels();
+      return await getInventories();
     }
     throw Exception('Failed to load medicine');
+  }
+
+  Future<InventoryModel> putInventory({
+    required int id,
+    required int quantity,
+  }) async {
+    final url = Uri.parse("$baseUrl/inventories/$id/");
+    final response = await http.put(
+      url,
+      headers: {
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+      body: {
+        "quantity": quantity.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      final inventory = jsonDecode(utf8.decode(response.bodyBytes));
+      return InventoryModel.fromJson(inventory);
+    } else if (response.statusCode == 403) {
+      await postRefreshToken();
+      return await putInventory(
+        id: id,
+        quantity: quantity,
+      );
+    }
+    throw Exception('Failed to load medicine');
+  }
+
+  Future<bool> deleteInventory({
+    required int id,
+    required int quantity,
+  }) async {
+    final url = Uri.parse("$baseUrl/inventories/$id/");
+    final response = await http.delete(
+      url,
+      headers: {
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
