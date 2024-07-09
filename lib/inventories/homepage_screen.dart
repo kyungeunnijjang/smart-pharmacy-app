@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/models/inventories_model.dart';
+import 'package:pharmacy_app/inventories/inventory_box.dart';
+import 'package:pharmacy_app/models/inventory.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class InventoryScreen extends StatefulWidget {
@@ -10,15 +11,15 @@ class InventoryScreen extends StatefulWidget {
 }
 
 class _InventoryScreenState extends State<InventoryScreen> {
-  late Future<List<InventoriesModel>> _inventoriesFuture;
+  late Future<List<InventoryModel>> _inventoriesFuture;
 
   @override
   void initState() {
     super.initState();
-    _inventoriesFuture = ApiService().getInventoryTinyModels();
+    _inventoriesFuture = ApiService().getInventories();
   }
 
-  int getQuantityAsInt(int index, List<InventoriesModel> inventories) {
+  int getQuantityAsInt(int index, List<InventoryModel> inventories) {
     return inventories[index].quantity;
   }
 
@@ -42,12 +43,11 @@ class _InventoryScreenState extends State<InventoryScreen> {
               if (snapshot.data == null) {
                 return const Text("데이터가 없습니다.");
               }
-              final List<InventoriesModel> inventories = snapshot.data!;
+              final List<InventoryModel> inventories = snapshot.data!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Increase space between categories and grid
                   Expanded(
                     child: GridView.builder(
                       padding: const EdgeInsets.all(8.0),
@@ -60,48 +60,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                       ),
                       itemCount: inventories.length,
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            //구매 추가추가
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.black, width: 1.0),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .center, // Align children in the center horizontally
-                              children: [
-                                Text(
-                                  inventories[index].medicineName,
-                                  style: const TextStyle(fontSize: 16.0),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.remove),
-                                      onPressed: () {
-                                        // Decrease quantity
-                                      },
-                                    ),
-                                    Text(
-                                      getQuantityAsInt(index, inventories)
-                                          .toString(),
-                                      style: const TextStyle(fontSize: 16.0),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.add),
-                                      onPressed: () {
-                                        // Increase quantity
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return InventoryBox(inventory: inventories[index]);
                       },
                     ),
                   ),
