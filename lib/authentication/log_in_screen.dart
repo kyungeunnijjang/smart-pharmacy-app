@@ -5,6 +5,7 @@ import 'sign_up_screen.dart';
 
 class LogInScreen extends StatelessWidget {
   LogInScreen({super.key});
+
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -99,8 +100,6 @@ class LogInScreen extends StatelessWidget {
   }
 
   void _signUpPressed(BuildContext context) {
-    // context를 매개변수로 추가
-
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
