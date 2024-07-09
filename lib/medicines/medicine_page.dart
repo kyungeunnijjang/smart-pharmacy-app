@@ -17,8 +17,11 @@ class _MedicinePageState extends State<MedicinePage> {
   final List<String> categories = ['감기약', '영양제', '위염약', '한약', '연고', '기타'];
 
   String selectedCategory = '감기약';
-  List<MedicineTinyModel> _medicines = [];
+  final List<MedicineTinyModel> _medicines = [];
   bool _isLoadingMore = false;
+
+  // Add a TextEditingController
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -27,10 +30,21 @@ class _MedicinePageState extends State<MedicinePage> {
     _fetchMedicines();
   }
 
-  Future<void> _fetchMedicines() async {
-    final newMedicines = await ApiService().getMedicineTinyList(page: _page);
+  // Dispose the controller when the widget is disposed
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  // Update _fetchMedicines to accept a search query
+  Future<void> _fetchMedicines({String search = ""}) async {
+    final newMedicines = await ApiService().getMedicineTinyList(page: _page, search: search);
 
     setState(() {
+      if (_page == 1) {
+        _medicines.clear(); // Clear the list if it's a new search
+      }
       _medicines.addAll(newMedicines);
     });
   }
@@ -50,14 +64,31 @@ class _MedicinePageState extends State<MedicinePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _searchController, // Attach the controller
               decoration: InputDecoration(
                 hintText: '약 이름을 검색해 보세요',
-                prefixIcon: Icon(Icons.search),
-                border: UnderlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                border: const UnderlineInputBorder(),
+                // Add a suffix icon to delete one character at a time
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.backspace),
+                  onPressed: () {
+                    if (_searchController.text.isNotEmpty) {
+                      _searchController.text = _searchController.text.substring(0, _searchController.text.length - 1);
+                    }
+                  },
+                ),
               ),
+              // Add onChanged to trigger search
+              onChanged: (value) {
+                setState(() {
+                  _page = 1; // Reset to first page for new search
+                });
+                _fetchMedicines(search: value);
+              },
             ),
           ),
           SizedBox(
@@ -136,7 +167,8 @@ class _MedicinePageState extends State<MedicinePage> {
                           _medicines[index].name,
                           style: const TextStyle(fontSize: 16.0),
                           maxLines: 6, // Limit to 6 lines
-                          overflow: TextOverflow.ellipsis, // Add ellipsis if text overflows
+                          overflow: TextOverflow
+                              .ellipsis, // Add ellipsis if text overflows
                         ),
                         const SizedBox(height: 8.0),
                       ],
