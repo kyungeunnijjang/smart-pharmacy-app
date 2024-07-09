@@ -84,7 +84,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
             // 결제 버튼 클릭 시 동작 추가
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green, // 초록색 버튼
+            backgroundColor: const Color.fromARGB(255, 205, 218, 168), // 초록색 버튼
           ),
           child: const Text(
             '결제',
