@@ -40,13 +40,23 @@ class SignUpPage extends StatelessWidget {
               children: [
                 const Text(
                   '사용 가능한 아이디 입니다.',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('닫기'),
+                  child: const Text(
+                    '닫기',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 13, 7, 7),
+                        fontFamily: "TEST"),
+                  ),
                 )
               ],
             ),
@@ -65,13 +75,23 @@ class SignUpPage extends StatelessWidget {
               children: [
                 const Text(
                   '이미 사용중인 아이디입니다.',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('닫기'),
+                  child: const Text(
+                    '닫기',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 13, 7, 7),
+                        fontFamily: "TEST"),
+                  ),
                 )
               ],
             ),
@@ -111,13 +131,23 @@ class SignUpPage extends StatelessWidget {
               children: [
                 const Text(
                   '모든 입력란을 채워주세요',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('닫기'),
+                  child: const Text(
+                    '닫기',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 13, 7, 7),
+                        fontFamily: "TEST"),
+                  ),
                 )
               ],
             ),
@@ -139,13 +169,23 @@ class SignUpPage extends StatelessWidget {
               children: [
                 const Text(
                   '비밀번호가 다릅니다',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('닫기'),
+                  child: const Text(
+                    '닫기',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 13, 7, 7),
+                        fontFamily: "TEST"),
+                  ),
                 )
               ],
             ),
@@ -159,7 +199,13 @@ class SignUpPage extends StatelessWidget {
       // 올바른 이메일 형식이 아닐 때 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('유효하지 않은 이메일 주소'),
+          content: Text(
+            '유효하지 않은 이메일 주소',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 13, 7, 7),
+                fontFamily: "TEST"),
+          ),
         ),
       );
       return;
@@ -171,7 +217,13 @@ class SignUpPage extends StatelessWidget {
       // 올바른 이메일 형식이 아닐 때 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('아이디와 비밀번호는 영어와 숫자로만 이루어져야 합니다.'),
+          content: Text(
+            '아이디와 비밀번호는 영어와 숫자로만 이루어져야 합니다.',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 13, 7, 7),
+                fontFamily: "TEST"),
+          ),
         ),
       );
       return;
@@ -213,11 +265,18 @@ class SignUpPage extends StatelessWidget {
         Text(
           "회원가입",
           style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
+              fontSize: 40,
+              fontWeight: FontWeight.w600,
+              color: Color.fromARGB(255, 13, 7, 7),
+              fontFamily: "TEST"),
         ),
-        Text("가입 정보를 입력하세요"),
+        Text(
+          "가입 정보를 입력하세요",
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Color.fromARGB(255, 13, 7, 7),
+              fontFamily: "TEST"),
+        ),
       ],
     );
   }
@@ -232,10 +291,18 @@ class SignUpPage extends StatelessWidget {
                 controller: _idController,
                 decoration: InputDecoration(
                   hintText: "아이디",
+                  hintStyle: const TextStyle(
+                    // hintStyle 추가
+
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey,
+                    fontFamily: "TEST",
+                  ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(18),
                       borderSide: BorderSide.none),
-                  fillColor: Colors.green.withOpacity(0.1),
+                  fillColor:
+                      const Color.fromARGB(255, 205, 218, 168).withOpacity(0.3),
                   filled: true,
                   prefixIcon: const Icon(Icons.person),
                 ),
@@ -253,59 +320,101 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                backgroundColor: Colors.green,
+                backgroundColor: const Color.fromARGB(255, 205, 218, 168),
+                shadowColor: Colors.black, // 그림자 색상 추가
+                elevation: 5,
               ),
               child: const Text(
                 "중복확인",
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(174, 0, 0, 0),
+                    fontFamily: "TEST"),
               ),
             ),
           ],
         ),
         const Text(
           '영어와 숫자만 입력 가능합니다.',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+              fontFamily: "TEST"),
         ),
         TextField(
           controller: _passwordController,
           decoration: InputDecoration(
               hintText: "비밀번호",
+              hintStyle: const TextStyle(
+                // hintStyle 추가
+
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+                fontFamily: "TEST",
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
-              fillColor: Colors.green.withOpacity(0.1),
+              fillColor:
+                  const Color.fromARGB(255, 205, 218, 168).withOpacity(0.3),
               filled: true,
               prefixIcon: const Icon(Icons.password)),
           obscureText: true,
         ),
         const Text(
           '영어와 숫자만 입력 가능합니다.',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+              fontFamily: "TEST"),
         ),
         TextField(
           controller: _confirmPasswordController,
           decoration: InputDecoration(
               hintText: "비밀번호 재입력",
+              hintStyle: const TextStyle(
+                // hintStyle 추가
+
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+                fontFamily: "TEST",
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
-              fillColor: Colors.green.withOpacity(0.1),
+              fillColor:
+                  const Color.fromARGB(255, 205, 218, 168).withOpacity(0.3),
               filled: true,
               prefixIcon: const Icon(Icons.password)),
           obscureText: true,
         ),
         const Text(
           '영어와 숫자만 입력 가능합니다.',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+              fontFamily: "TEST"),
         ),
         TextField(
           controller: _nameController,
           decoration: InputDecoration(
               hintText: "이름",
+              hintStyle: const TextStyle(
+                // hintStyle 추가
+
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+                fontFamily: "TEST",
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
-              fillColor: Colors.green.withOpacity(0.1),
+              fillColor:
+                  const Color.fromARGB(255, 205, 218, 168).withOpacity(0.3),
               filled: true,
               prefixIcon: const Icon(Icons.person)),
         ),
@@ -314,16 +423,28 @@ class SignUpPage extends StatelessWidget {
           controller: _emailController,
           decoration: InputDecoration(
               hintText: "이메일",
+              hintStyle: const TextStyle(
+                // hintStyle 추가
+
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+                fontFamily: "TEST",
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
                   borderSide: BorderSide.none),
-              fillColor: Colors.green.withOpacity(0.1),
+              fillColor:
+                  const Color.fromARGB(255, 205, 218, 168).withOpacity(0.3),
               filled: true,
               prefixIcon: const Icon(Icons.email)),
         ),
         const Text(
           '--@--.---의 형식으로 작성해주세요.',
-          style: TextStyle(color: Colors.grey, fontSize: 12),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
+              fontFamily: "TEST"),
         ),
         ElevatedButton(
           onPressed: () {
@@ -332,12 +453,18 @@ class SignUpPage extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
             padding: const EdgeInsets.symmetric(vertical: 16),
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 205, 218, 168),
             minimumSize: const Size(double.infinity, 0),
+            shadowColor: Colors.black, // 그림자 색상 추가
+            elevation: 5,
           ),
           child: const Text(
             "회원가입",
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(174, 0, 0, 0),
+                fontFamily: "TEST"),
           ),
         ),
       ],
@@ -350,7 +477,13 @@ class SignUpPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("이미 계정이 있으신가요?"),
+            const Text(
+              "이미 계정이 있으신가요?",
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Color.fromARGB(255, 13, 7, 7),
+                  fontFamily: "TEST"),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.push(context,
@@ -358,7 +491,10 @@ class SignUpPage extends StatelessWidget {
               },
               child: const Text(
                 "로그인",
-                style: TextStyle(color: Colors.green),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 205, 218, 168),
+                    fontFamily: "TEST"),
               ),
             )
           ],
