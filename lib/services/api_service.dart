@@ -106,12 +106,12 @@ class ApiService {
   }
 
   Future<List<MedicineTinyModel>> getMedicineTinyList() async {
-    int page = 1;
+    int page = 100;
     String search = "";
     List<MedicineTinyModel> medicineTinyModels = [];
-    Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=1");
+    Uri urlAddress = Uri.parse("$baseUrl/medicines/?page=$page");
     if (search != "") {
-        urlAddress = Uri.parse("$baseUrl/medicines/?page=1$search");
+      urlAddress = Uri.parse("$baseUrl/medicines/?page=1$search");
     }
     final response = await http.get(urlAddress);
     if (response.statusCode == 200) {
