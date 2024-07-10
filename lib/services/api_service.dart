@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pharmacy_app/models/inventory.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
+import 'package:pharmacy_app/models/receipts_model.dart';
 import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
@@ -203,4 +204,26 @@ class ApiService {
       return false;
     }
   }
+
+  Future<List<ReceiptsModel>> getReceipts() async {
+    final url = Uri.parse("$baseUrl/receipts/");
+
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final List<dynamic> receipts =
+          jsonDecode(utf8.decode(response.bodyBytes));
+
+      List<ReceiptsModel> receiptModels = []; // 수정된 부분
+
+      for (var receipt in receipts) {
+        receiptModels.add(ReceiptsModel.fromJson(receipt)); // 수정된 부분
+      }
+
+      return receiptModels; // 수정된 부분
+    }
+    print('Error: ${response.statusCode}'); // 상태 코드를 출력합니다.
+    throw Exception('Failed to load receipts');
+  }
+
+  
 }

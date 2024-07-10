@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_box.dart';
 import 'package:pharmacy_app/models/inventory.dart';
+import 'package:pharmacy_app/receipt_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class InventoryScreen extends StatefulWidget {
-  const InventoryScreen({super.key});
+  const InventoryScreen({
+    super.key,
+  });
 
   @override
   State<InventoryScreen> createState() => _InventoryScreenState();
@@ -21,6 +25,30 @@ class _InventoryScreenState extends State<InventoryScreen> {
 
   int getQuantityAsInt(int index, List<InventoryModel> inventories) {
     return inventories[index].quantity;
+  }
+
+  void _showPaymentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('결제 완료'),
+          content: const Text('결제가 성공적으로 완료되었습니다.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogInScreen()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -80,18 +108,31 @@ class _InventoryScreenState extends State<InventoryScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () {
-            // 결제 버튼 클릭 시 동작 추가
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 205, 218, 168), // 초록색 버튼
-          ),
-          child: const Text(
-            '결제',
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                _showPaymentDialog();
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const ReceiptScreen()),
+                // );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 205, 218, 168),
+                minimumSize: const Size.fromHeight(50), // 초록색 버튼
+              ),
+              child: const Text(
+                '결제',
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+            ),
+          ],
         ),
       ),
     );
