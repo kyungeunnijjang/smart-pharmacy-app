@@ -161,7 +161,9 @@ class _MedicinePageState extends State<MedicinePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PurchaseScreen()), // Use PurchaseWidget
+            MaterialPageRoute(
+                builder: (context) =>
+                    const PurchaseScreen()), // Use PurchaseWidget
           );
         },
         child: const Icon(Icons.shopping_cart),

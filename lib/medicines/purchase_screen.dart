@@ -18,22 +18,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 13, 7, 7),
+              color: Colors.black,
               fontFamily: "TEST"),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_basket),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PurchaseWidget(),
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: Container(
         margin: const EdgeInsets.all(24),
@@ -43,14 +30,21 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         ),
       ),
       // Add a green payment button below
-      bottomNavigationBar: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(Colors.green),
+      bottomNavigationBar: Container(
+        //margin: const EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(
+                const Color.fromARGB(255, 205, 218, 168)),
+          ),
+          onPressed: () {
+            // Add your payment logic here
+          },
+          child: const Text('결제',
+              style: TextStyle(
+                  color: Color.fromARGB(174, 0, 0, 0), fontSize: 30.0)),
         ),
-        onPressed: () {
-          // Add your payment logic here
-        },
-        child: const Text('결제', style: TextStyle(color: Colors.white)),
       ),
     );
   }
