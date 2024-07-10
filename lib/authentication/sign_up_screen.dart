@@ -4,7 +4,7 @@ import 'package:pharmacy_app/home/home_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class SignUpPage extends StatelessWidget {
-SignUpPage({super.key});
+  SignUpPage({super.key});
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -102,87 +102,36 @@ SignUpPage({super.key});
     String email = _emailController.text;
     String passwordConfirm = _confirmPasswordController.text;
 
-    await ApiService().postUsers(
-      username: username,
-      password: password,
-      name: name,
-      email: email,
-    );
-
     if (username.isEmpty ||
         password.isEmpty ||
         name.isEmpty ||
         email.isEmpty ||
         passwordConfirm.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  '모든 입력란을 채워주세요',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 13, 7, 7),
-                      fontFamily: "TEST"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    '닫기',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 13, 7, 7),
-                        fontFamily: "TEST"),
-                  ),
-                )
-              ],
-            ),
-          );
-        },
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            '모든 입력란을 채워주세요.',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontFamily: "TEST"),
+          ),
+        ),
       );
       return;
     }
 
     if (password != passwordConfirm) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  '비밀번호가 다릅니다',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 13, 7, 7),
-                      fontFamily: "TEST"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    '닫기',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 13, 7, 7),
-                        fontFamily: "TEST"),
-                  ),
-                )
-              ],
-            ),
-          );
-        },
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            '비밀번호가 일치하지 않습니다.',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontFamily: "TEST"),
+          ),
+        ),
       );
       return;
     }
@@ -194,7 +143,7 @@ SignUpPage({super.key});
             '유효하지 않은 이메일 주소',
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 13, 7, 7),
+                color: Colors.white,
                 fontFamily: "TEST"),
           ),
         ),
@@ -211,13 +160,21 @@ SignUpPage({super.key});
             '아이디와 비밀번호는 영어와 숫자로만 이루어져야 합니다.',
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 13, 7, 7),
+                fontSize: 12,
+                color: Colors.white,
                 fontFamily: "TEST"),
           ),
         ),
       );
       return;
     }
+
+    await ApiService().postUsers(
+      username: username,
+      password: password,
+      name: name,
+      email: email,
+    );
 
     Navigator.push(
       context,
@@ -308,7 +265,7 @@ SignUpPage({super.key});
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-                shadowColor: Colors.black, 
+                shadowColor: Colors.black,
                 elevation: 5,
               ),
               child: const Text(
@@ -434,7 +391,7 @@ SignUpPage({super.key});
             padding: const EdgeInsets.symmetric(vertical: 16),
             backgroundColor: const Color.fromARGB(255, 205, 218, 168),
             minimumSize: const Size(double.infinity, 0),
-            shadowColor: Colors.black, 
+            shadowColor: Colors.black,
             elevation: 5,
           ),
           child: const Text(
