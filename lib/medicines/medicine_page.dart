@@ -3,7 +3,6 @@ import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
 import 'package:pharmacy_app/services/api_service.dart';
-import 'package:pharmacy_app/purchase_widget.dart'; // Import PurchaseWidget
 
 class MedicinePage extends StatefulWidget {
   const MedicinePage({super.key});

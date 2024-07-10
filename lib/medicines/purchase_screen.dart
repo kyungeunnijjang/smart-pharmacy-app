@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/purchase_widget.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 
 class PurchaseScreen extends StatefulWidget {
