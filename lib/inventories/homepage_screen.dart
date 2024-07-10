@@ -49,18 +49,19 @@ class _InventoryScreenState extends State<InventoryScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                  child: GridView.builder(
+                  child: ListView.builder(
                     padding: const EdgeInsets.all(8.0),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      childAspectRatio: 0.75,
-                    ),
                     itemCount: inventories.length,
                     itemBuilder: (context, index) {
-                      return InventoryBox(inventory: inventories[index]);
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            // 추가된 부분
+                            child: InventoryBox(inventory: inventories[index]),
+                          ),
+                        ],
+                      );
                     },
                   ),
                 ),
