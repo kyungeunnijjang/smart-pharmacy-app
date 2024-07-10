@@ -12,6 +12,21 @@ class MedicineDetailScreen extends StatefulWidget {
 
 class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   late Future<MedicineDetailModel> _medicineFuture;
+  int _quantity = 0;
+
+  void _incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+  }
+
+  void _decrementQuantity() {
+    if (_quantity > 0) {
+      setState(() {
+        _quantity--;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -118,19 +133,38 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                           ],
                         )),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        const TextSpan(
-                            text: ' 가격: ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 30.0)),
-                        TextSpan(
-                            text: ' ${medicine.price}원',
-                            style: const TextStyle(fontSize: 25.0)),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0), // Add padding to create space
+                    child: RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          const TextSpan(
+                              text: 'Price: ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 30.0)),
+                          TextSpan(
+                              text: ' ${medicine.price}원',
+                              style: const TextStyle(fontSize: 25.0)),
+                        ],
+                      ),
                     ),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: _decrementQuantity,
+                      ),
+                      Text('$_quantity',
+                          style: const TextStyle(
+                              fontSize: 25)), // Increase font size
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: _incrementQuantity,
+                      ),
+                    ],
                   ),
                 ],
               );
