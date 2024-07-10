@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/purchase_widget.dart';
+import 'package:pharmacy_app/authentication/log_in_screen.dart';
 
 class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({super.key});
@@ -39,6 +40,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 const Color.fromARGB(255, 205, 218, 168)),
           ),
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LogInScreen()),
+            );
             // Add your payment logic here
           },
           child: const Text('결제',
