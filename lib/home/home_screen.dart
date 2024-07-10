@@ -39,7 +39,6 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _loginbutton(context),
-              // _home(context),
             ],
           ),
         ),
@@ -53,33 +52,6 @@ _loginbutton(context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      // ElevatedButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => const QRScreen()),
-      //     );
-      //   },
-      //   style: ElevatedButton.styleFrom(
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(18),
-      //     ),
-      //     padding: const EdgeInsets.symmetric(vertical: 20),
-      //     backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-      //     minimumSize: const Size(double.infinity, 0),
-      //   ),
-      //   child: const Text(
-      //     "처방전 방문",
-      //     style: TextStyle(
-      //         color: Colors.black,
-      //         fontSize: 30,
-      //         fontWeight: FontWeight.w500,
-      //         fontFamily: "TEST"),
-      //   ),
-      // ),
-      // const SizedBox(
-      //   height: 80,
-      // ),
       ElevatedButton(
         onPressed: () {
           Navigator.push(
@@ -131,26 +103,6 @@ _loginbutton(context) {
               fontFamily: "TEST"),
         ),
       ),
-    ],
-  );
-}
-
-_home(context) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-            // IconButton으로 변경
-            icon: const Icon(Icons.home), // 홈 모양 아이콘
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LogInScreen()));
-            },
-          ),
-        ],
-      )
     ],
   );
 }

@@ -14,9 +14,6 @@ class _MedicinePageState extends State<MedicinePage> {
   late Future<List<MedicineTinyModel>> _medicinesFutre;
 
   int _page = 1;
-  final List<String> categories = ['감기약', '영양제', '위염약', '한약', '연고', '기타'];
-
-  String selectedCategory = '감기약';
   final List<MedicineTinyModel> _medicines = [];
   bool _isLoadingMore = false;
 
@@ -39,7 +36,8 @@ class _MedicinePageState extends State<MedicinePage> {
 
   // Update _fetchMedicines to accept a search query
   Future<void> _fetchMedicines({String search = ""}) async {
-    final newMedicines = await ApiService().getMedicineTinyList(page: _page, search: search);
+    final newMedicines =
+        await ApiService().getMedicineTinyList(page: _page, search: search);
 
     setState(() {
       if (_page == 1) {
@@ -77,7 +75,8 @@ class _MedicinePageState extends State<MedicinePage> {
                   icon: const Icon(Icons.backspace),
                   onPressed: () {
                     if (_searchController.text.isNotEmpty) {
-                      _searchController.text = _searchController.text.substring(0, _searchController.text.length - 1);
+                      _searchController.text = _searchController.text
+                          .substring(0, _searchController.text.length - 1);
                     }
                   },
                 ),
@@ -91,30 +90,6 @@ class _MedicinePageState extends State<MedicinePage> {
               },
             ),
           ),
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: ChoiceChip(
-                    label: Text(categories[index]),
-                    selected: selectedCategory == categories[index],
-                    onSelected: (bool selected) {
-                      setState(() {
-                        selectedCategory = categories[index];
-                      });
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(
-              height: 32.0), // Increase space between categories and grid
-
           Expanded(
             child: NotificationListener<ScrollNotification>(
               onNotification: (ScrollNotification scrollInfo) {
