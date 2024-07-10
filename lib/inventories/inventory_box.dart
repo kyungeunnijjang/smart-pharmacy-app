@@ -71,7 +71,7 @@ class _InventoryBoxState extends State<InventoryBox> {
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   Text(
-                    widget.inventory.medicinePrice.toString(),
+                    '${widget.inventory.medicinePrice}원',
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   Row(

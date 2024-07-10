@@ -19,7 +19,6 @@ class _InventoryScreenState extends State<InventoryScreen> {
     _inventoriesFuture = ApiService().getInventories();
   }
 
-
   int getQuantityAsInt(int index, List<InventoryModel> inventories) {
     return inventories[index].quantity;
   }
@@ -91,9 +90,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
           child: const Text(
             '결제',
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
       ),
