@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'package:pharmacy_app/services/api_service.dart';
+import 'package:pharmacy_app/purchase_widget.dart'; // Import the PurchaseScreen class
 
 class MedicineDetailScreen extends StatefulWidget {
   final int id;
@@ -179,6 +181,18 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const PurchaseScreen(), // Use PurchaseScreen class here
+            ),
+          );
+        },
+        child: const Icon(Icons.shopping_cart),
       ),
     );
   }
