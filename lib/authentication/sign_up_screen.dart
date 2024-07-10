@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/home/home_screen.dart';
-
 import 'package:pharmacy_app/services/api_service.dart';
 
 class SignUpPage extends StatelessWidget {
-  // 변수 추가
-  SignUpPage({super.key});
+SignUpPage({super.key});
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -15,7 +13,6 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
 
   bool isValidEmail(String email) {
-    // 이메일 주소의 유효성을 확인하는 정규 표현식
     final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
   }
@@ -28,8 +25,6 @@ class SignUpPage extends StatelessWidget {
   Future<void> CheckUsername(BuildContext context) async {
     String username = _idController.text;
     if (await ApiService().checkId(username: username)) {
-      // Username is available, proceed with sign up
-      // 변수 추가
       showDialog(
         context: context,
         builder: (context) {
@@ -64,7 +59,6 @@ class SignUpPage extends StatelessWidget {
         },
       );
     } else {
-      // 변수 추가
       showDialog(
         context: context,
         builder: (context) {
@@ -120,7 +114,6 @@ class SignUpPage extends StatelessWidget {
         name.isEmpty ||
         email.isEmpty ||
         passwordConfirm.isEmpty) {
-      // 모든 칸을 입력하도록 메시지 표시
       showDialog(
         context: context,
         builder: (context) {
@@ -158,7 +151,6 @@ class SignUpPage extends StatelessWidget {
     }
 
     if (password != passwordConfirm) {
-      // 비밀번호가 일치하지 않을 때 메시지 표시
       showDialog(
         context: context,
         builder: (context) {
@@ -196,7 +188,6 @@ class SignUpPage extends StatelessWidget {
     }
 
     if (!isValidEmail(email)) {
-      // 올바른 이메일 형식이 아닐 때 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -214,7 +205,6 @@ class SignUpPage extends StatelessWidget {
     if (!isValidName(username) ||
         !isValidName(password) ||
         !isValidName(passwordConfirm)) {
-      // 올바른 이메일 형식이 아닐 때 메시지 표시
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -229,7 +219,6 @@ class SignUpPage extends StatelessWidget {
       return;
     }
 
-    // 모든 조건이 충족되면 HomeScreen으로 이동
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -292,8 +281,6 @@ class SignUpPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: "아이디",
                   hintStyle: const TextStyle(
-                    // hintStyle 추가
-
                     fontWeight: FontWeight.w600,
                     color: Colors.grey,
                     fontFamily: "TEST",
@@ -321,7 +308,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-                shadowColor: Colors.black, // 그림자 색상 추가
+                shadowColor: Colors.black, 
                 elevation: 5,
               ),
               child: const Text(
@@ -348,8 +335,6 @@ class SignUpPage extends StatelessWidget {
           decoration: InputDecoration(
               hintText: "비밀번호",
               hintStyle: const TextStyle(
-                // hintStyle 추가
-
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
                 fontFamily: "TEST",
@@ -376,8 +361,6 @@ class SignUpPage extends StatelessWidget {
           decoration: InputDecoration(
               hintText: "비밀번호 재입력",
               hintStyle: const TextStyle(
-                // hintStyle 추가
-
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
                 fontFamily: "TEST",
@@ -404,8 +387,6 @@ class SignUpPage extends StatelessWidget {
           decoration: InputDecoration(
               hintText: "이름",
               hintStyle: const TextStyle(
-                // hintStyle 추가
-
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
                 fontFamily: "TEST",
@@ -424,8 +405,6 @@ class SignUpPage extends StatelessWidget {
           decoration: InputDecoration(
               hintText: "이메일",
               hintStyle: const TextStyle(
-                // hintStyle 추가
-
                 fontWeight: FontWeight.w600,
                 color: Colors.grey,
                 fontFamily: "TEST",
@@ -455,7 +434,7 @@ class SignUpPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16),
             backgroundColor: const Color.fromARGB(255, 205, 218, 168),
             minimumSize: const Size(double.infinity, 0),
-            shadowColor: Colors.black, // 그림자 색상 추가
+            shadowColor: Colors.black, 
             elevation: 5,
           ),
           child: const Text(

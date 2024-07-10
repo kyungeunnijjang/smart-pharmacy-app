@@ -55,8 +55,8 @@ class _InventoryBoxState extends State<InventoryBox> {
                 border: Border.all(color: Colors.black, width: 1.0),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment
-                    .center, // Align children in the center horizontally
+                crossAxisAlignment: CrossAxisAlignment.center, // 수평 중앙 정렬
+                mainAxisAlignment: MainAxisAlignment.center,
 
                 children: [
                   Text(
@@ -72,7 +72,11 @@ class _InventoryBoxState extends State<InventoryBox> {
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      const SizedBox(
+                        width: 50,
+                      ),
                       if (quantity >= 2)
                         IconButton(
                           icon: const Icon(Icons.remove),
@@ -80,6 +84,10 @@ class _InventoryBoxState extends State<InventoryBox> {
                             int newQuantity = quantity - 1;
                             updateQuantity(newQuantity);
                           },
+                        ),
+                      if (quantity < 2)
+                        const SizedBox(
+                          width: 45,
                         ),
                       Text(
                         quantity.toString(),
@@ -91,6 +99,20 @@ class _InventoryBoxState extends State<InventoryBox> {
                           int newQuantity = quantity + 1;
                           updateQuantity(newQuantity);
                         },
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () async {
+                            await ApiService().deleteInventory(
+                                id: widget.inventory.id,
+                                quantity: widget.inventory.quantity);
+                            setState(() async {
+                              await ApiService().getInventories();
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
