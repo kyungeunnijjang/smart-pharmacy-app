@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
-// import 'package:pharmacy_app/second_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_page.dart';
 import 'package:pharmacy_app/inventories/homepage_screen.dart';
 
