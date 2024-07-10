@@ -118,6 +118,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                           ],
                         )),
                   ),
+                  
                   RichText(
                     text: TextSpan(
                       style: DefaultTextStyle.of(context).style,

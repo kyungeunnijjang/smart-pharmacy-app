@@ -19,6 +19,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
     _inventoriesFuture = ApiService().getInventories();
   }
 
+
   int getQuantityAsInt(int index, List<InventoryModel> inventories) {
     return inventories[index].quantity;
   }

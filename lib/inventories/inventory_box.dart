@@ -46,6 +46,9 @@ class _InventoryBoxState extends State<InventoryBox> {
           return const Center(child: CircularProgressIndicator()); // 로딩 중일 때
         } else if (snapshot.hasData) {
           final quantity = snapshot.data!;
+          if (quantity == 0) {
+            return const SizedBox.shrink(); // 수량이 0일 때 빈 컨테이너 반환
+          }
           return GestureDetector(
             onTap: () {
               //구매 추가추가
@@ -108,8 +111,8 @@ class _InventoryBoxState extends State<InventoryBox> {
                             await ApiService().deleteInventory(
                                 id: widget.inventory.id,
                                 quantity: widget.inventory.quantity);
-                            setState(() async {
-                              await ApiService().getInventories();
+                            setState(() {
+                              _quantity = Future.value(0);
                             });
                           },
                         ),
