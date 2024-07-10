@@ -167,15 +167,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                         onPressed: _incrementQuantity,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const PurchaseScreen(), // Use PurchaseScreen class here
-                            ),
-                          );
-                        },
+                        onPressed: () {},
                         style: ButtonStyle(
                           foregroundColor:
                               WidgetStateProperty.all(Colors.black),
