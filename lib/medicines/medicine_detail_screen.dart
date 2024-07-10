@@ -60,7 +60,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Card(
                       elevation: 8,
                       child: Column(
@@ -137,7 +137,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10.0), // Add padding to create space
+                        vertical: 13.0), // Add padding to create space
                     child: RichText(
                       text: TextSpan(
                         style: DefaultTextStyle.of(context).style,
@@ -165,6 +165,25 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                       IconButton(
                         icon: const Icon(Icons.add),
                         onPressed: _incrementQuantity,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PurchaseScreen(), // Use PurchaseScreen class here
+                            ),
+                          );
+                        },
+                        style: ButtonStyle(
+                          foregroundColor:
+                              WidgetStateProperty.all(Colors.black),
+                        ),
+                        child: const Text('담기',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16)), // Change text color to black
                       ),
                     ],
                   ),
