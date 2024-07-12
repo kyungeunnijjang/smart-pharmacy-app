@@ -224,6 +224,4 @@ class ApiService {
     print('Error: ${response.statusCode}'); // 상태 코드를 출력합니다.
     throw Exception('Failed to load receipts');
   }
-
-  
 }

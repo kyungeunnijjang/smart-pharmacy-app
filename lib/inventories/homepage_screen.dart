@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_box.dart';
 import 'package:pharmacy_app/models/inventory.dart';
-import 'package:pharmacy_app/receipt_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class InventoryScreen extends StatefulWidget {
