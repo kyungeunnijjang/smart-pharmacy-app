@@ -190,15 +190,17 @@ class SignUpPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height,
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _signheader(context),
-              _signinputField(context),
-              _signlogin(context),
-            ],
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _signheader(context),
+                _signinputField(context),
+                _signlogin(context),
+              ],
+            ),
           ),
         ),
       ),
