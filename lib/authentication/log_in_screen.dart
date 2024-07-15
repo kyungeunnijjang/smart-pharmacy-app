@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/home/home_screen.dart';
+import 'package:pharmacy_app/medicines/medicine_page.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 import 'sign_up_screen.dart';
 
@@ -57,7 +57,7 @@ class LogInScreen extends StatelessWidget {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const MedicinePage()),
         );
       } catch (e) {
         showDialog(
