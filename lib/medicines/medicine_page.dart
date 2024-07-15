@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/favorite_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
 import 'package:pharmacy_app/services/api_service.dart';
-import 'package:pharmacy_app/wep_purchase_screen.dart';
 
 class MedicinePage extends StatefulWidget {
   const MedicinePage({super.key});
@@ -78,7 +78,7 @@ class _MedicinePageState extends State<MedicinePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const WepPurchaseScreen()),
+                      builder: (context) => const InventoryScreen()),
                 );
               }
             },

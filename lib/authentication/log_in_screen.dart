@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/doctor_qr_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_page.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 import 'sign_up_screen.dart';
@@ -56,10 +57,74 @@ class LogInScreen extends StatelessWidget {
           username: username,
           password: password,
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const MedicinePage()),
-        );
+        var inventory = await ApiService().getInventories();
+
+        if (inventory.isNotEmpty) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text(
+                  '구매 목록 확인',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
+                ),
+                content: const Text(
+                  '장바구니에 약이 있습니다. 구매하시겠습니까?',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 13, 7, 7),
+                      fontFamily: "TEST"),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      // 예 버튼 클릭 시 처리
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InventoryScreen()),
+                      );
+                    },
+                    child: const Text(
+                      '예',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromARGB(255, 13, 7, 7),
+                          fontFamily: "TEST"),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      // 예 버튼 클릭 시 처리
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MedicinePage()),
+                      );
+                    },
+                    child: const Text(
+                      '아니오',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromARGB(255, 13, 7, 7),
+                          fontFamily: "TEST"),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MedicinePage()),
+          );
+        }
       } catch (e) {
         showDialog(
           context: context,
