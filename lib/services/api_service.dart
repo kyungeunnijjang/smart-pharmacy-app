@@ -205,7 +205,7 @@ class ApiService {
     }
   }
 
-  Future<List<ReceiptsModel>> getReceipts() async {
+  Future<List<ReceiptModel>> getReceipts() async {
     final url = Uri.parse("$baseUrl/receipts/");
 
     final response = await http.get(url);
@@ -213,10 +213,10 @@ class ApiService {
       final List<dynamic> receipts =
           jsonDecode(utf8.decode(response.bodyBytes));
 
-      List<ReceiptsModel> receiptModels = []; // 수정된 부분
+      List<ReceiptModel> receiptModels = []; // 수정된 부분
 
       for (var receipt in receipts) {
-        receiptModels.add(ReceiptsModel.fromJson(receipt)); // 수정된 부분
+        receiptModels.add(ReceiptModel.fromJson(receipt)); // 수정된 부분
       }
 
       return receiptModels; // 수정된 부분

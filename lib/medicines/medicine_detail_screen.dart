@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
-import 'package:pharmacy_app/models/medicine.detail.dart'; // 올바른 모델 경로 확인 필요
+import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'package:pharmacy_app/services/api_service.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // shared_preferences 추가
 
 class MedicineDetailScreen extends StatefulWidget {
   final int id;
@@ -15,27 +14,6 @@ class MedicineDetailScreen extends StatefulWidget {
 class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   late Future<MedicineDetailModel> _medicineFuture;
   int _quantity = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _medicineFuture = ApiService().getMedicineDetail(widget.id);
-    _loadQuantity(); // 앱 시작 시 저장된 수량 불러오기
-  }
-
-  // 저장된 수량 불러오기
-  void _loadQuantity() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _quantity = prefs.getInt('medicine_${widget.id}_quantity') ?? 0;
-    });
-  }
-
-  // 수량 저장하기
-  Future<void> _saveQuantity() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('medicine_${widget.id}_quantity', _quantity);
-  }
 
   void _incrementQuantity() {
     setState(() {
@@ -52,6 +30,12 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _medicineFuture = ApiService().getMedicineDetail(widget.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,12 +43,8 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           future: _medicineFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                final MedicineDetailModel medicine = snapshot.data!;
-                return Text(medicine.name);
-              } else {
-                return const Text('Error: No data');
-              }
+              final MedicineDetailModel medicine = snapshot.data!;
+              return Text(medicine.name);
             }
             return const CircularProgressIndicator();
           },
@@ -74,8 +54,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
         child: FutureBuilder(
           future: _medicineFuture,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done &&
-                snapshot.hasData) {
+            if (snapshot.connectionState == ConnectionState.done) {
               final MedicineDetailModel medicine = snapshot.data!;
               return Column(
                 children: [
@@ -133,65 +112,83 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Card(
-                      elevation: 8,
-                      child: Column(
-                        children: [
-                          const Text(
-                            "사용에 주의해야하는 사항",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              medicine.sideEffect,
-                              style: const TextStyle(
-                                fontSize: 18,
+                        elevation: 8,
+                        child: Column(
+                          children: [
+                            const Text(
+                              "사용에 주의해야하는 사항",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                medicine.sideEffect,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 13.0), // Add padding to create space
+                    child: RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          const TextSpan(
+                              text: 'Price: ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 30.0)),
+                          TextSpan(
+                              text: ' ${medicine.price}원',
+                              style: const TextStyle(fontSize: 25.0)),
                         ],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 13.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove),
-                          onPressed: _decrementQuantity,
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: _decrementQuantity,
+                      ),
+                      Text('$_quantity',
+                          style: const TextStyle(
+                              fontSize: 25)), // Increase font size
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: _incrementQuantity,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          foregroundColor:
+                              WidgetStateProperty.all(Colors.black),
                         ),
-                        Text('$_quantity',
-                            style: const TextStyle(fontSize: 25)),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: _incrementQuantity,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _saveQuantity(); // 담기 버튼을 누를 때 수량 저장
-                          },
-                          style: ButtonStyle(
-                            foregroundColor:
-                                WidgetStateProperty.all(Colors.black),
-                          ),
-                          child: const Text('담기',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16)),
-                        ),
-                      ],
-                    ),
+                        child: const Text('담기',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16)), // Change text color to black
+                      ),
+                    ],
                   ),
                 ],
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            return const Center(child: Text('Unable to load data'));
+            // Add a default return statement
+            return const Center(
+              child: Text('Unable to load data'),
+            );
           },
         ),
       ),
@@ -199,7 +196,10 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const PurchaseScreen()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  const PurchaseScreen(), // Use PurchaseScreen class here
+            ),
           );
         },
         child: const Icon(Icons.shopping_cart),
