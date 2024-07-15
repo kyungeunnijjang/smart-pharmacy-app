@@ -53,14 +53,15 @@ class _InventoryBoxState extends State<InventoryBox> {
             onTap: () {
               //구매 추가추가
             },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1.0),
+            child: Card(
+              // Container 대신 Card 사용
+              elevation: 2.0, // 그림자 효과 추가
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0), // 모서리 둥글게
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center, // 수평 중앙 정렬
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
                   Text(
                     widget.inventory.medicineName,

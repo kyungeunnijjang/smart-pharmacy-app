@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/favorite_screen.dart';
-import 'package:pharmacy_app/inventories/homepage_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';

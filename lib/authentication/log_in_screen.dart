@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/doctor_qr_screen.dart';
-import 'package:pharmacy_app/inventories/homepage_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_page.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 import 'sign_up_screen.dart';
