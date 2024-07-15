@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/favorite_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
-import 'package:pharmacy_app/mypage_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
+import 'package:pharmacy_app/wep_purchase_screen.dart';
 
 class MedicinePage extends StatefulWidget {
   const MedicinePage({super.key});
@@ -60,17 +61,40 @@ class _MedicinePageState extends State<MedicinePage> {
                 color: Color.fromARGB(255, 13, 7, 7),
                 fontFamily: "TEST")),
         actions: <Widget>[
-          IconButton(
+          PopupMenuButton<int>(
             icon: const Icon(
               Icons.account_circle,
               size: 40,
             ),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => const MypageScreen(),
-              );
+            onSelected: (int result) {
+              if (result == 0) {
+                // 즐겨찾기 버튼 눌렀을 때
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen()),
+                );
+              } else if (result == 1) {
+                // 홈페이지 버튼 눌렀을 때
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const WepPurchaseScreen()),
+                );
+              }
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text('즐겨찾기'),
+              ),
+              const PopupMenuItem<int>(
+                value: 1,
+                child: Text('홈페이지'),
+              ),
+            ],
           ),
         ],
       ),

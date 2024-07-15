@@ -12,38 +12,9 @@ class _MypageScreenState extends State<MypageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mypage Screen'),
+        title: const Text('마이페이지'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  height: 200,
-                  color: Colors.white,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text('Modal Bottom Sheet'),
-                        ElevatedButton(
-                          child: const Text('Close'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          child: const Text('Show Modal Bottom Sheet'),
-        ),
-      ),
+      body: const Center(),
     );
   }
 }
