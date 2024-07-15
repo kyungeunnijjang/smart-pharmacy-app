@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
+import 'package:pharmacy_app/mypage_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class MedicinePage extends StatefulWidget {
@@ -65,8 +66,10 @@ class _MedicinePageState extends State<MedicinePage> {
               size: 40,
             ),
             onPressed: () {
-              // 마이페이지로 이동하는 코드를 여기에 추가하세요.
-              // 예: Navigator.push(context, MaterialPageRoute(builder: (context) => MyPageScreen()));
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => const MypageScreen(),
+              );
             },
           ),
         ],

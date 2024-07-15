@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
