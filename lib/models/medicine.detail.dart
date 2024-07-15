@@ -1,12 +1,9 @@
 class MedicineDetailModel {
   final int id;
   final String name;
-
   final String efficacy;
-
   final String bewareFood;
   final String sideEffect;
-
   final int price;
 
   MedicineDetailModel.fromJson(Map<String, dynamic> json)

@@ -20,7 +20,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
   }
 
   void getReceipts() async {
-    List<ReceiptsModel> fetchedReceipts = await ApiService().getReceipts();
+    List<ReceiptModel> fetchedReceipts = await ApiService().getReceipts();
     setState(() {
       receipts = fetchedReceipts.map((receipt) => receipt.toString()).toList();
     });
