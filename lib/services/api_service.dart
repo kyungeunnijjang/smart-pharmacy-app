@@ -221,7 +221,7 @@ class ApiService {
 
       return receiptModels; // 수정된 부분
     }
-    print('Error: ${response.statusCode}'); // 상태 코드를 출력합니다.
+    print('Error: ${response.statusCode}'); 
     throw Exception('Failed to load receipts');
   }
 }
