@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
-import 'package:pharmacy_app/home/home_screen.dart';
+import 'package:pharmacy_app/medicines/medicine_page.dart';
+// import 'package:pharmacy_app/home/home_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -179,7 +180,7 @@ class SignUpPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const MedicinePage(),
       ),
     );
   }

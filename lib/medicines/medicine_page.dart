@@ -3,6 +3,7 @@ import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
 import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
 import 'package:pharmacy_app/services/api_service.dart';
+
 class MedicinePage extends StatefulWidget {
   const MedicinePage({super.key});
 
@@ -57,6 +58,18 @@ class _MedicinePageState extends State<MedicinePage> {
                 fontWeight: FontWeight.w600,
                 color: Color.fromARGB(255, 13, 7, 7),
                 fontFamily: "TEST")),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.account_circle,
+              size: 40,
+            ),
+            onPressed: () {
+              // 마이페이지로 이동하는 코드를 여기에 추가하세요.
+              // 예: Navigator.push(context, MaterialPageRoute(builder: (context) => MyPageScreen()));
+            },
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
