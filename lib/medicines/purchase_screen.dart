@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/purchase_widget.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 
 class PurchaseScreen extends StatefulWidget {
@@ -10,6 +9,30 @@ class PurchaseScreen extends StatefulWidget {
 }
 
 class _PurchaseScreenState extends State<PurchaseScreen> {
+  void _showPaymentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('결제 완료'),
+          content: const Text('결제가 성공적으로 완료되었습니다.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogInScreen()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +63,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 const Color.fromARGB(255, 205, 218, 168)),
           ),
           onPressed: () {
-            MaterialPageRoute(
-              builder: (context) => LogInScreen(), // Navigate to LogInScreen
-            );
+            _showPaymentDialog();
           },
           child: const Text('결제',
               style: TextStyle(

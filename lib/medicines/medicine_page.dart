@@ -66,8 +66,7 @@ class _MedicinePageState extends State<MedicinePage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: 
-            TextField(
+            child: TextField(
               controller: _searchController, // Attach the controller
               decoration: InputDecoration(
                 hintText: '약 이름을 검색해 보세요',
@@ -112,8 +111,7 @@ class _MedicinePageState extends State<MedicinePage> {
                 }
                 return true;
               },
-              child: 
-              GridView.builder(
+              child: GridView.builder(
                 padding: const EdgeInsets.all(8.0),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
