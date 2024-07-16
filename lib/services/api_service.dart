@@ -1,7 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pharmacy_app/models/inventory.dart';
-import 'package:pharmacy_app/models/medicine.detail.dart';
+import 'package:pharmacy_app/models/medicine.detail.dart'
+    hide MedicineTinyModel;
 import 'package:pharmacy_app/models/receipts_model.dart';
 import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
@@ -67,7 +68,6 @@ class ApiService {
       },
     );
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
       try {
         postToken(username: username, password: password);
         return true;

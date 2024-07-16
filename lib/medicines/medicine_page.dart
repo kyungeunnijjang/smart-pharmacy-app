@@ -69,15 +69,12 @@ class _MedicinePageState extends State<MedicinePage> {
             onSelected: (int result) {
               if (result == 0) {
                 // 즐겨찾기 버튼 눌렀을 때
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const FavoriteScreen()),
                 );
               } else if (result == 1) {
-                // 홈페이지 버튼 눌렀을 때
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(

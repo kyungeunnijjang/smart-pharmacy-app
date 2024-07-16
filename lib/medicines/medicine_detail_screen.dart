@@ -58,81 +58,17 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               final MedicineDetailModel medicine = snapshot.data!;
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 8,
-                      child: Column(
-                        children: [
-                          const Text(
-                            "효능",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              medicine.efficacy,
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  DescrtionItem(
+                    title: "효능",
+                    content: medicine.efficacy,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Card(
-                        elevation: 8,
-                        child: Column(
-                          children: [
-                            const Text(
-                              "복용할 때 주의 해야하는 음식",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                medicine.efficacy,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
+                  DescrtionItem(
+                    title: "복용할 때 주의 해야하는 음식",
+                    content: medicine.bewareFood,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Card(
-                        elevation: 8,
-                        child: Column(
-                          children: [
-                            const Text(
-                              "사용에 주의해야하는 사항",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                medicine.sideEffect,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
+                  DescrtionItem(
+                    title: "사용에 주의해야하는 사항",
+                    content: medicine.cautions,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -152,6 +88,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                       ),
                     ),
                   ),
+                  Text(medicine.averageRating.toString()),
                   Row(
                     children: [
                       IconButton(
@@ -203,6 +140,47 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           );
         },
         child: const Icon(Icons.shopping_cart),
+      ),
+    );
+  }
+}
+
+class DescrtionItem extends StatelessWidget {
+  const DescrtionItem({
+    super.key,
+    required this.title,
+    required this.content,
+  });
+
+  final String title;
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Card(
+        elevation: 8,
+        child: Column(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                content,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
