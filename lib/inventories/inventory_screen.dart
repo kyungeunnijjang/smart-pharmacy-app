@@ -26,22 +26,50 @@ class _InventoryScreenState extends State<InventoryScreen> {
     return inventories[index].quantity;
   }
 
-  void _showPaymentDialog() {
+  void _purchase() async {
+    if (await ApiService().purchaseInventory()) {
+      _purchasetrue();
+    } else {
+      _purchasefalse();
+    }
+  }
+
+  void _purchasetrue() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('결제 완료'),
-          content: const Text('결제가 성공적으로 완료되었습니다.'),
+          title: const Text('구매 완료'),
+          content: const Text('구매가 성공적으로 완료되었습니다.'),
           actions: <Widget>[
             TextButton(
               child: const Text('확인'),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => LogInScreen()),
                 );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _purchasefalse() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('구매 실패'),
+          content: const Text('재고가 없거나 구매 목록이 비어 있습니다.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -112,7 +140,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
-                _showPaymentDialog();
+                _purchase();
 
                 // Navigator.push(
                 //   context,
@@ -121,7 +149,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-                minimumSize: const Size.fromHeight(50), // 초록색 버튼
+                minimumSize: const Size.fromHeight(50),
               ),
               child: const Text(
                 '결제',

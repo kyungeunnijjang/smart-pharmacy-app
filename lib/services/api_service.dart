@@ -205,6 +205,25 @@ class ApiService {
     }
   }
 
+  Future<bool> purchaseInventory() async {
+    final url = Uri.parse("$baseUrl/inventories/purchase/");
+    final response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 400 || response.statusCode == 204) {
+      return false;
+    } else {
+      throw Exception('Failed to load medicine');
+    }
+  }
+
   Future<List<ReceiptModel>> getReceipts() async {
     final url = Uri.parse("$baseUrl/receipts/");
 
@@ -221,7 +240,7 @@ class ApiService {
 
       return receiptModels; // 수정된 부분
     }
-    print('Error: ${response.statusCode}'); 
+    print('Error: ${response.statusCode}');
     throw Exception('Failed to load receipts');
   }
 }
