@@ -88,6 +88,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                       ),
                     ),
                   ),
+                  Text(medicine.averageRating.toString()),
                   Row(
                     children: [
                       IconButton(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class MedicineDetailModel {
   final int id;
   final String createdAt;
@@ -15,7 +13,7 @@ class MedicineDetailModel {
   final String sideEffect;
   final String howToStore;
   final int price;
-  final int averageRating;
+  final double averageRating;
   final int reviewCount;
   final bool isFavorite;
   final String imgURL;
