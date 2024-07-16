@@ -8,7 +8,9 @@ class ReceiptModel {
   ReceiptModel.fromJson(Map<String, dynamic> json)
       : purchaseAt = json['purchase_at'],
         totalPrice = json['total_price'],
-        pastMedicines = json['past_medicines'];
+        pastMedicines = (json['past_medicines'] as List)
+            .map((item) => PastMedicine.fromJson(item))
+            .toList();
 }
 
 class PastMedicine {
@@ -17,7 +19,7 @@ class PastMedicine {
   final MedicineTinyModel medicine;
 
   PastMedicine.fromJson(Map<String, dynamic> json)
-      : quantity = json['quantity	'],
+      : quantity = json['quantity'],
         pricePerMedicineAtPurchase = json['price_per_medicine_at_purchase'],
-        medicine = json['medicine'];
+        medicine = MedicineTinyModel.fromJson(json['medicine']);
 }
