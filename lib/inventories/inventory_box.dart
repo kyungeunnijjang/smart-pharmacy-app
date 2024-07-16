@@ -99,7 +99,12 @@ class _InventoryBoxState extends State<InventoryBox> {
                         ),
                       Text(
                         quantity.toString(),
-                        style: const TextStyle(fontSize: 16.0),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: quantity > widget.inventory.medicineRemaining
+                              ? Colors.red
+                              : Colors.black,
+                        ),
                       ),
                       IconButton(
                         icon: const Icon(Icons.add),
