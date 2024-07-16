@@ -197,8 +197,10 @@ class _MedicinePageState extends State<MedicinePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    const PurchaseScreen()), // Use PurchaseWidget
+                builder: (context) => const PurchaseScreen(
+                      medicineName: "Default Medicine Name",
+                      quantity: 1, // Add the required 'quantity' argument
+                    )),
           );
         },
         child: const Icon(Icons.shopping_cart),
