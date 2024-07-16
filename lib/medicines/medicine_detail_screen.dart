@@ -131,13 +131,18 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  const PurchaseScreen(), // Use PurchaseScreen class here
-            ),
-          );
+          if (_quantity > 0) {
+            // 수량이 0보다 클 때만 네비게이션
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PurchaseScreen(
+                  medicineName: "약 이름", // 여기에 실제 약 이름 변수를 넣으세요.
+                  quantity: _quantity,
+                ),
+              ),
+            );
+          }
         },
         child: const Icon(Icons.shopping_cart),
       ),
