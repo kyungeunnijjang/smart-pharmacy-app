@@ -83,7 +83,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "홈페이지 구매 목록",
+          "장바구니",
           style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,

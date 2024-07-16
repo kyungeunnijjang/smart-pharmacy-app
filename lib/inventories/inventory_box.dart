@@ -75,6 +75,10 @@ class _InventoryBoxState extends State<InventoryBox> {
                     '${widget.inventory.medicinePrice}원',
                     style: const TextStyle(fontSize: 16.0),
                   ),
+                  Text(
+                    '재고${widget.inventory.medicineRemaining}개',
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -95,7 +99,12 @@ class _InventoryBoxState extends State<InventoryBox> {
                         ),
                       Text(
                         quantity.toString(),
-                        style: const TextStyle(fontSize: 16.0),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: quantity > widget.inventory.medicineRemaining
+                              ? Colors.red
+                              : Colors.black,
+                        ),
                       ),
                       IconButton(
                         icon: const Icon(Icons.add),

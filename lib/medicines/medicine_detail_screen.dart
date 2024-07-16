@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/medicines/purchase_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -131,18 +131,13 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_quantity > 0) {
-            // 수량이 0보다 클 때만 네비게이션
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PurchaseScreen(
-                  medicineName: "약 이름", // 여기에 실제 약 이름 변수를 넣으세요.
-                  quantity: _quantity,
-                ),
-              ),
-            );
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const InventoryScreen(), // Use PurchaseScreen class here
+            ),
+          );
         },
         child: const Icon(Icons.shopping_cart),
       ),

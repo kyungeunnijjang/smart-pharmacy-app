@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/favorite_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
-import 'package:pharmacy_app/medicines/purchase_screen.dart';
 import 'package:pharmacy_app/models/token_model.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -74,22 +73,12 @@ class _MedicinePageState extends State<MedicinePage> {
                   MaterialPageRoute(
                       builder: (context) => const FavoriteScreen()),
                 );
-              } else if (result == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const InventoryScreen()),
-                );
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
               const PopupMenuItem<int>(
                 value: 0,
                 child: Text('즐겨찾기'),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text('홈페이지'),
               ),
             ],
           ),
@@ -197,10 +186,8 @@ class _MedicinePageState extends State<MedicinePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const PurchaseScreen(
-                      medicineName: "Default Medicine Name",
-                      quantity: 1, // Add the required 'quantity' argument
-                    )),
+                builder: (context) =>
+                    const InventoryScreen()), // Use PurchaseWidget
           );
         },
         child: const Icon(Icons.shopping_cart),
