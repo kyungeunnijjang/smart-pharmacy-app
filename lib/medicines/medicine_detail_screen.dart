@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/medicines/purchase_screen.dart';
+import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -135,7 +135,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  const PurchaseScreen(), // Use PurchaseScreen class here
+                  const InventoryScreen(), // Use PurchaseScreen class here
             ),
           );
         },
