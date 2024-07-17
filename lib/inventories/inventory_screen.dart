@@ -56,7 +56,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
                 Navigator.of(context).pop();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LogInScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => LogInScreen(),
+                  ),
                 );
               },
             ),
