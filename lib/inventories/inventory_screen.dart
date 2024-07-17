@@ -34,6 +34,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
     }
   }
 
+  void _removeInventory(int id) {
+    setState(() {
+      _inventoriesFuture = _inventoriesFuture.then((inventories) {
+        return inventories.where((inventory) => inventory.id != id).toList();
+      });
+    });
+  }
+
   void _purchasetrue() {
     showDialog(
       context: context,
@@ -113,8 +121,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            // 추가된 부분
-                            child: InventoryBox(inventory: inventories[index]),
+                            child: InventoryBox(
+                              inventory: inventories[index],
+                              onDelete: _removeInventory,
+                            ),
                           ),
                         ],
                       );

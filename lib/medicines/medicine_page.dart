@@ -13,8 +13,6 @@ class MedicinePage extends StatefulWidget {
 }
 
 class _MedicinePageState extends State<MedicinePage> {
-  late Future<List<MedicineTinyModel>> _medicinesFutre;
-
   int _page = 1;
   final List<MedicineTinyModel> _medicines = [];
   bool _isLoadingMore = false;
