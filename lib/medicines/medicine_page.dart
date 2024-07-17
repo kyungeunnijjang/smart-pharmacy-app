@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/favorite_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/medicines/medicine_detail_screen.dart';
@@ -64,7 +65,13 @@ class _MedicinePageState extends State<MedicinePage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.home),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LogInScreen()),
+                (Route<dynamic> route) => false, // 추가된 부분
+              );
+            },
           ),
         ],
       ),
