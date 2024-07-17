@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
 class ApiService {
-  final String baseUrl = "http://192.168.1.191:8000/api/v1";
+  final String baseUrl = "http://192.168.0.90:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
   Future<bool> checkId({
@@ -158,6 +158,33 @@ class ApiService {
       return await getInventories();
     }
     throw Exception('Failed to load medicine');
+  }
+
+  Future<bool> postInventory({
+    required int medicineId,
+    required int quantity,
+  }) async {
+    final url = Uri.parse("$baseUrl/inventories/");
+    final response = await http.post(
+      url,
+      headers: {
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+      body: {
+        "medicine": medicineId.toString(),
+        "quantity": quantity.toString(),
+      },
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 403) {
+      await postRefreshToken();
+      return await postInventory(
+        medicineId: medicineId,
+        quantity: quantity,
+      );
+    }
+    return false;
   }
 
   Future<InventoryModel> putInventory({

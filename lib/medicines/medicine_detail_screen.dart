@@ -103,7 +103,12 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                         onPressed: _incrementQuantity,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ApiService().postInventory(
+                            medicineId: widget.id,
+                            quantity: _quantity,
+                          );
+                        },
                         style: ButtonStyle(
                           foregroundColor:
                               WidgetStateProperty.all(Colors.black),
