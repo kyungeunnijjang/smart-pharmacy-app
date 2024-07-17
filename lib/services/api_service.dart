@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:pharmacy_app/models/token_model.dart';
 
 class ApiService {
-  final String baseUrl = "http://192.168.1.191:8000/api/v1";
+  final String baseUrl = "http://192.168.0.90:8000/api/v1";
   static const storage = FlutterSecureStorage();
 
   Future<bool> checkId({
