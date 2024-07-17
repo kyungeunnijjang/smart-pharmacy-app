@@ -167,7 +167,7 @@ class _MedicinePageState extends State<MedicinePage> {
                         Text(
                           _medicines[index].name,
                           style: const TextStyle(fontSize: 16.0),
-                          maxLines: 6, // Limit to 6 lines
+                          maxLines: 2, // Limit to 6 lines
                           overflow: TextOverflow
                               .ellipsis, // Add ellipsis if text overflows
                         ),
