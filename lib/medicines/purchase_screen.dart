@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/receipt_screen.dart';
+import 'package:pharmacy_app/authentication/log_in_screen.dart';
 
 class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({super.key});
@@ -24,7 +24,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ReceiptScreen()),
+                      builder: (context) => LogInScreen()),
                 );
               },
             ),

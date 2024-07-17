@@ -81,13 +81,7 @@ class LogInScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-                      // 예 버튼 클릭 시 처리
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const InventoryScreen()),
-                      );
+                      _goInventory(context);
                     },
                     child: const Text(
                       '예',
@@ -99,13 +93,7 @@ class LogInScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-                      // 예 버튼 클릭 시 처리
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MedicinePage()),
-                      );
+                      _goMedicine(context);
                     },
                     child: const Text(
                       '아니오',
@@ -120,10 +108,7 @@ class LogInScreen extends StatelessWidget {
             },
           );
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MedicinePage()),
-          );
+          _goMedicine(context);
         }
       } catch (e) {
         showDialog(
@@ -169,6 +154,22 @@ class LogInScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
+    );
+  }
+
+  void _goMedicine(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const MedicinePage()),
+      (Route<dynamic> route) => false, // 추가된 부분
+    );
+  }
+
+  void _goInventory(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const InventoryScreen()),
+      (Route<dynamic> route) => false, // 추가된 부분
     );
   }
 

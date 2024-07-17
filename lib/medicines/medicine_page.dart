@@ -53,34 +53,18 @@ class _MedicinePageState extends State<MedicinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('약 구경',
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                color: Color.fromARGB(255, 13, 7, 7),
-                fontFamily: "TEST")),
-        actions: <Widget>[
-          PopupMenuButton<int>(
-            icon: const Icon(
-              Icons.account_circle,
-              size: 40,
-            ),
-            onSelected: (int result) {
-              if (result == 0) {
-                // 즐겨찾기 버튼 눌렀을 때
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FavoriteScreen()),
-                );
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text('즐겨찾기'),
-              ),
-            ],
+        title: const Text(
+          '약 구경',
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w600,
+              color: Color.fromARGB(255, 13, 7, 7),
+              fontFamily: "TEST"),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {},
           ),
         ],
       ),
