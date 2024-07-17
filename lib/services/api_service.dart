@@ -226,21 +226,28 @@ class ApiService {
 
   Future<List<ReceiptModel>> getReceipts() async {
     final url = Uri.parse("$baseUrl/receipts/");
+    final response = await http.get(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer ${await storage.read(key: 'access')}",
+      },
+    );
 
-    final response = await http.get(url);
     if (response.statusCode == 200) {
       final List<dynamic> receipts =
           jsonDecode(utf8.decode(response.bodyBytes));
-
-      List<ReceiptModel> receiptModels = []; // 수정된 부분
-
+      List<ReceiptModel> receiptModels = [];
       for (var receipt in receipts) {
-        receiptModels.add(ReceiptModel.fromJson(receipt)); // 수정된 부분
+        receiptModels.add(ReceiptModel.fromJson(receipt));
       }
-
-      return receiptModels; // 수정된 부분
+      return receiptModels;
+    } else if (response.statusCode == 403) {
+      await postRefreshToken();
+      return await getReceipts();
+    } else {
+      throw Exception('Failed to load receipts: ${response.statusCode}');
     }
-    print('Error: ${response.statusCode}');
-    throw Exception('Failed to load receipts');
   }
 }

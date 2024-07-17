@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_box.dart';
 import 'package:pharmacy_app/models/inventory.dart';
+import 'package:pharmacy_app/receipt_screen.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
 class InventoryScreen extends StatefulWidget {
@@ -48,7 +49,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
                 Navigator.of(context).pop();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LogInScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ReceiptScreen()),
                 );
               },
             ),
