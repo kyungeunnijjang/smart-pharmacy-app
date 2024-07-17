@@ -160,23 +160,28 @@ class LogInScreen extends StatelessWidget {
   void _goMedicine(BuildContext context) {
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const MedicinePage()),
+      MaterialPageRoute(
+        builder: (context) => const MedicinePage(),
+      ),
       (Route<dynamic> route) => false, // 추가된 부분
     );
   }
 
   void _goInventory(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
+    Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const InventoryScreen()),
-      (Route<dynamic> route) => false, // 추가된 부분
+      MaterialPageRoute(
+        builder: (context) => const InventoryScreen(),
+      ),
     );
   }
 
   void _QrPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const DoctorQrScreen()),
+      MaterialPageRoute(
+        builder: (context) => const DoctorQrScreen(),
+      ),
     );
   }
 
