@@ -46,6 +46,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               final MedicineDetailModel medicine = snapshot.data!;
               return Text(medicine.name);
             }
+
             return const CircularProgressIndicator();
           },
         ),
@@ -56,12 +57,14 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               final MedicineDetailModel medicine = snapshot.data!;
+
               return Column(
                 children: [
                   DescrtionItem(
                     title: "효능",
                     content: medicine.efficacy,
                   ),
+
                   DescrtionItem(
                     title: "복용할 때 주의 해야하는 음식",
                     content: medicine.bewareFood,
@@ -70,6 +73,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     title: "사용에 주의해야하는 사항",
                     content: medicine.cautions,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 13.0), // Add padding to create space
@@ -89,37 +93,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     ),
                   ),
                   Text(medicine.averageRating.toString()),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: _decrementQuantity,
-                      ),
-                      Text('$_quantity',
-                          style: const TextStyle(
-                              fontSize: 25)), // Increase font size
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: _incrementQuantity,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          ApiService().postInventory(
-                            medicineId: widget.id,
-                            quantity: _quantity,
-                          );
-                        },
-                        style: ButtonStyle(
-                          foregroundColor:
-                              WidgetStateProperty.all(Colors.black),
-                        ),
-                        child: const Text('담기',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16)), // Change text color to black
-                      ),
-                    ],
-                  ),
+                  // Remove the Row with buttons from here
                 ],
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -127,6 +101,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                 child: CircularProgressIndicator(),
               );
             }
+
             // Add a default return statement
             return const Center(
               child: Text('Unable to load data'),
@@ -145,6 +120,35 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           );
         },
         child: const Icon(Icons.shopping_cart),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: _decrementQuantity,
+            ),
+            Text('$_quantity', style: const TextStyle(fontSize: 25)),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: _incrementQuantity,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                ApiService().postInventory(
+                  medicineId: widget.id,
+                  quantity: _quantity,
+                );
+              },
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all(Colors.black),
+              ),
+              child: const Text('담기',
+                  style: TextStyle(color: Colors.black, fontSize: 16)),
+            ),
+          ],
+        ),
       ),
     );
   }
