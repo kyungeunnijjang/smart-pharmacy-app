@@ -97,155 +97,153 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             if (snapshot.connectionState == ConnectionState.done) {
               final MedicineDetailModel medicine = snapshot.data!;
 
-              return Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.network(
-                            medicine.imgURL,
+              return Column(children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          medicine.imgURL,
 
-                            width: 180, // 원하는 너비로 설정
+                          width: 180, // 원하는 너비로 설정
 
-                            height: 180,
+                          height: 180,
 
-                            fit: BoxFit.fill,
+                          fit: BoxFit.fill,
 
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              } else {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            },
-
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(
-                                Icons.broken_image,
-                                size: 50,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
-                            },
-                          ),
-                          const SizedBox(
-                            width: 20.0,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 180,
-                                child: Text(
-                                  medicine.name,
-                                  overflow: TextOverflow.visible,
-                                  style: const TextStyle(
-                                    fontSize: 12,
+                            }
+                          },
+
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.broken_image,
+                              size: 50,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 180,
+                              child: Text(
+                                medicine.name,
+                                overflow: TextOverflow.visible,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            const Gap(2),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                    text: '가격: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                    ),
                                   ),
-                                ),
-                              ),
-                              const Gap(2),
-                              RichText(
-                                text: TextSpan(
-                                  style: DefaultTextStyle.of(context).style,
-                                  children: <TextSpan>[
-                                    const TextSpan(
-                                      text: '가격: ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: ' ${medicine.price}원',
-                                      style: const TextStyle(fontSize: 18.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  style: DefaultTextStyle.of(context).style,
-                                  children: <TextSpan>[
-                                    const TextSpan(
-                                      text: '재고 : ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: ' ${medicine.remaining}개',
-                                      style: const TextStyle(fontSize: 18.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: List.generate(5, (index) {
-                                      IconData icon;
-
-                                      if (index <
-                                          medicine.averageRating.floor()) {
-                                        icon = Icons.star;
-                                      } else if (index <
-                                          medicine.averageRating) {
-                                        icon = Icons.star_half;
-                                      } else {
-                                        icon = Icons.star_border;
-                                      }
-                                      return Icon(
-                                        icon,
-                                        color: Colors.amber,
-                                      );
-                                    }),
+                                  TextSpan(
+                                    text: ' ${medicine.price}원',
+                                    style: const TextStyle(fontSize: 18.0),
                                   ),
-
-                                  const SizedBox(
-                                      width:
-                                          8), // Add some space between stars and review count
-
-                                  Text('(${medicine.reviewCount})'),
                                 ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                    text: '재고 : ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${medicine.remaining}개',
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: List.generate(5, (index) {
+                                    IconData icon;
+
+                                    if (index <
+                                        medicine.averageRating.floor()) {
+                                      icon = Icons.star;
+                                    } else if (index < medicine.averageRating) {
+                                      icon = Icons.star_half;
+                                    } else {
+                                      icon = Icons.star_border;
+                                    }
+                                    return Icon(
+                                      icon,
+                                      color: Colors.amber,
+                                    );
+                                  }),
+                                ),
+
+                                const SizedBox(
+                                    width:
+                                        8), // Add some space between stars and review count
+
+                                Text('(${medicine.reviewCount})'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  DescrtionItem(
-                    title: "효능",
-                    content: medicine.efficacy,
-                  ),
-                  DescrtionItem(
-                    title: "복용할 때 주의 해야하는 음식",
-                    content: medicine.bewareFood,
-                  ),
-                  DescrtionItem(
-                    title: "사용에 주의해야하는 사항",
-                    content: medicine.cautions,
-                  ),
-                      DescrtionItem(
-                    title: "부작용",
-                    content: medicine.sideEffect,
-                  ),
-                  DescrtionItem(
-                    title: "보관 방법",
-                    content: medicine.howToStore,
-                  ),
-                  DescrtionItem(
-                    title: "사용법",
-                    content: medicine.usage,
-                  ),
-              );
+                ),
+                DescrtionItem(
+                  title: "효능",
+                  content: medicine.efficacy,
+                ),
+                DescrtionItem(
+                  title: "복용할 때 주의 해야하는 음식",
+                  content: medicine.bewareFood,
+                ),
+                DescrtionItem(
+                  title: "사용에 주의해야하는 사항",
+                  content: medicine.cautions,
+                ),
+                DescrtionItem(
+                  title: "부작용",
+                  content: medicine.sideEffect,
+                ),
+                DescrtionItem(
+                  title: "보관 방법",
+                  content: medicine.howToStore,
+                ),
+                DescrtionItem(
+                  title: "사용법",
+                  content: medicine.usage,
+                ),
+              ]);
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
