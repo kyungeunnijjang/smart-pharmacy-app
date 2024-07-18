@@ -150,14 +150,16 @@ class _InventoryScreenState extends State<InventoryScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Text(
+              '총 결제 금액: 100,000원', // 추가된 텍스트
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 _purchase();
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const ReceiptScreen()),
-                // );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 205, 218, 168),

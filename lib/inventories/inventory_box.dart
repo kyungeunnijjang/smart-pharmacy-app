@@ -19,12 +19,14 @@ class InventoryBox extends StatefulWidget {
 
 class _InventoryBoxState extends State<InventoryBox> {
   late Future<int> _quantity;
+  late int total;
 
   @override
   void initState() {
     super.initState();
 
     _quantity = Future.value(widget.inventory.quantity);
+    total = widget.inventory.medicinePrice * widget.inventory.quantity;
   }
 
   void updateQuantity(int quantity) async {
@@ -35,7 +37,8 @@ class _InventoryBoxState extends State<InventoryBox> {
     await ApiService()
         .putInventory(id: widget.inventory.id, quantity: quantity);
     setState(() {
-      _quantity = Future.value(quantity); // 업데이트된 수량 설정
+      _quantity = Future.value(quantity);
+      total = widget.inventory.medicinePrice * quantity; // 업데이트된 수량 설정
     });
   }
 
@@ -67,6 +70,10 @@ class _InventoryBoxState extends State<InventoryBox> {
                 ),
                 Text(
                   '재고${widget.inventory.medicineRemaining}개',
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+                Text(
+                  '총 : $total원',
                   style: const TextStyle(fontSize: 16.0),
                 ),
                 FutureBuilder(
