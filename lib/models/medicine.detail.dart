@@ -59,3 +59,5 @@ class MedicineTinyModel {
         remaining = json['remaining'],
         imgURL = json['img_url'];
 }
+
+

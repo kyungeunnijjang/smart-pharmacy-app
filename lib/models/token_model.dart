@@ -27,10 +27,18 @@ class MedicineTinyModel {
   final String name;
   final String company;
   final int price;
+  final double averageRating;
+  final int reviewCount;
+  final int remaining;
+  final String imgUrl;
 
   MedicineTinyModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         company = json['company'],
-        price = json['price'];
+        price = json['price'],
+        averageRating = json['average_rating'],
+        reviewCount = json['review_count'],
+        remaining = json['remaining'],
+        imgUrl = json['img_url'];
 }

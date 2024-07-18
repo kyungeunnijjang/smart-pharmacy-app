@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/inventories/inventory_screen.dart';
 import 'package:pharmacy_app/models/medicine.detail.dart';
 import 'package:pharmacy_app/services/api_service.dart';
+import 'package:gap/gap.dart';
 
 class MedicineDetailScreen extends StatefulWidget {
   final int id;
@@ -13,6 +14,7 @@ class MedicineDetailScreen extends StatefulWidget {
 
 class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   late Future<MedicineDetailModel> _medicineFuture;
+
   int _quantity = 0;
 
   void _incrementQuantity() {
@@ -78,8 +80,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               final MedicineDetailModel medicine = snapshot.data!;
               return Text(medicine.name);
             }
-
-            return const CircularProgressIndicator();
+            return const LinearProgressIndicator();
           },
         ),
       ),
@@ -92,6 +93,103 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
 
               return Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          medicine.imgURL,
+                          width: 180, // 원하는 너비로 설정
+                          height: 180,
+                          fit: BoxFit.fill,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.broken_image,
+                              size: 50,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 180,
+                              child: Text(
+                                medicine.name,
+                                overflow: TextOverflow.visible,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            const Gap(2),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                    text: '가격: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${medicine.price}원',
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Text(
+                            //   medicine.averageRating.toString(),
+                            //   style: const TextStyle(fontSize: 18.0),
+                            // ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: List.generate(5, (index) {
+                                    IconData icon;
+                                    if (index <
+                                        medicine.averageRating.floor()) {
+                                      icon = Icons.star;
+                                    } else if (index < medicine.averageRating) {
+                                      icon = Icons.star_half;
+                                    } else {
+                                      icon = Icons.star_border;
+                                    }
+                                    return Icon(
+                                      icon,
+                                      color: Colors.amber,
+                                    );
+                                  }),
+                                ),
+                                const SizedBox(
+                                    width:
+                                        8), // Add some space between stars and review count
+                                Text('(${medicine.reviewCount})'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
                   DescrtionItem(
                     title: "효능",
                     content: medicine.efficacy,
@@ -106,51 +204,32 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     content: medicine.cautions,
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 13.0), // Add padding to create space
-
-                    child: RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          const TextSpan(
-                              text: 'Price: ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 30.0)),
-                          TextSpan(
-                              text: ' ${medicine.price}원',
-                              style: const TextStyle(fontSize: 25.0)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Text(medicine.averageRating.toString()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: List.generate(5, (index) {
-                          IconData icon;
-                          if (index < medicine.averageRating.floor()) {
-                            icon = Icons.star;
-                          } else if (index < medicine.averageRating) {
-                            icon = Icons.star_half;
-                          } else {
-                            icon = Icons.star_border;
-                          }
-                          return Icon(
-                            icon,
-                            color: Colors.amber,
-                          );
-                        }),
-                      ),
-                      const SizedBox(
-                          width:
-                              8), // Add some space between stars and review count
-                      Text('(${medicine.reviewCount})'),
-                    ],
-                  ),
+                  // Text(medicine.averageRating.toString()),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Row(
+                  //       children: List.generate(5, (index) {
+                  //         IconData icon;
+                  //         if (index < medicine.averageRating.floor()) {
+                  //           icon = Icons.star;
+                  //         } else if (index < medicine.averageRating) {
+                  //           icon = Icons.star_half;
+                  //         } else {
+                  //           icon = Icons.star_border;
+                  //         }
+                  //         return Icon(
+                  //           icon,
+                  //           color: Colors.amber,
+                  //         );
+                  //       }),
+                  //     ),
+                  //     const SizedBox(
+                  //         width:
+                  //             8), // Add some space between stars and review count
+                  //     Text('(${medicine.reviewCount})'),
+                  // ],
+                  // ),
                   // Remove the Row with buttons from here
                 ],
               );

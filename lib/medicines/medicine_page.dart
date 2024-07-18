@@ -1,3 +1,4 @@
+import 'dart:io'; // 추가
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_screen.dart';
@@ -23,6 +24,9 @@ class _MedicinePageState extends State<MedicinePage> {
   @override
   void initState() {
     super.initState();
+
+    // Add this line to ignore SSL certificate errors
+    HttpOverrides.global = MyHttpOverrides();
 
     _fetchMedicines();
   }
@@ -153,6 +157,16 @@ class _MedicinePageState extends State<MedicinePage> {
                     },
                     child: Column(
                       children: [
+                        Image.network(
+                          _medicines[index].imgUrl,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.broken_image,
+                              size: 50,
+                            );
+                          },
+                        ),
                         Text(
                           _medicines[index].name,
                           style: const TextStyle(fontSize: 16.0),
@@ -186,5 +200,15 @@ class _MedicinePageState extends State<MedicinePage> {
         ),
       ),
     );
+  }
+}
+
+// Add this class to override the HttpOverrides
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
