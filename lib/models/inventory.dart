@@ -15,4 +15,8 @@ class InventoryModel {
         medicineCompany = json['medicine']['company'],
         medicinePrice = json['medicine']['price'],
         medicineRemaining = json['medicine']['remaining'] ?? 0;
+
+  set quantity(int value) {
+    quantity = value;
+  }
 }

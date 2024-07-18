@@ -109,6 +109,7 @@ class SignUpPage extends StatelessWidget {
         passwordConfirm.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
           content: Text(
             '모든 입력란을 채워주세요.',
             style: TextStyle(
@@ -124,6 +125,7 @@ class SignUpPage extends StatelessWidget {
     if (password != passwordConfirm) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
           content: Text(
             '비밀번호가 일치하지 않습니다.',
             style: TextStyle(
@@ -139,6 +141,7 @@ class SignUpPage extends StatelessWidget {
     if (!isValidEmail(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
           content: Text(
             '유효하지 않은 이메일 주소',
             style: TextStyle(
@@ -156,6 +159,7 @@ class SignUpPage extends StatelessWidget {
         !isValidName(passwordConfirm)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          duration: Duration(seconds: 1),
           content: Text(
             '아이디와 비밀번호는 영어와 숫자로만 이루어져야 합니다.',
             style: TextStyle(
