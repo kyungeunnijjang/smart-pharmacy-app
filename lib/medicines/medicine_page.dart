@@ -51,6 +51,7 @@ class _MedicinePageState extends State<MedicinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         title: const Text(
           '약 구경',
           style: TextStyle(
