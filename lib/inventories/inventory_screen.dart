@@ -16,11 +16,23 @@ class InventoryScreen extends StatefulWidget {
 
 class _InventoryScreenState extends State<InventoryScreen> {
   late Future<List<InventoryModel>> _inventoriesFuture;
+  int total = 0;
 
   @override
   void initState() {
     super.initState();
     _inventoriesFuture = ApiService().getInventories();
+    _calculateTotal();
+  }
+
+  void _calculateTotal() async {
+    final inventories = await _inventoriesFuture;
+    setState(() {
+      total = inventories.fold(
+        0,
+        (sum, item) => sum + (item.quantity * item.medicinePrice).toInt(),
+      );
+    });
   }
 
   int getQuantityAsInt(int index, List<InventoryModel> inventories) {
@@ -35,9 +47,16 @@ class _InventoryScreenState extends State<InventoryScreen> {
     }
   }
 
+  void _updateTotal(int delta) {
+    setState(() {
+      total += delta;
+    });
+  }
+
   void _removeInventory(int id) {
     setState(() {
       _inventoriesFuture = ApiService().getInventories();
+      _calculateTotal();
     });
   }
 
@@ -95,10 +114,11 @@ class _InventoryScreenState extends State<InventoryScreen> {
         title: const Text(
           "장바구니",
           style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 13, 7, 7),
-              fontFamily: "TEST"),
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Color.fromARGB(255, 13, 7, 7),
+            fontFamily: "TEST",
+          ),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -137,6 +157,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             child: InventoryBox(
                               inventory: inventories[index],
                               onDelete: _removeInventory,
+                              onUpdate: _updateTotal,
                             ),
                           ),
                         ],
@@ -162,9 +183,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              '총 결제 금액: 100,000원', // 추가된 텍스트
-              style: TextStyle(
+            Text(
+              '총 결제 금액: $total원', // 추가된 텍스트
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
