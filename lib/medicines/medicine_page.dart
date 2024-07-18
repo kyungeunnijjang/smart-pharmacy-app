@@ -134,7 +134,7 @@ class _MedicinePageState extends State<MedicinePage> {
                   crossAxisCount: 3,
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
-                  childAspectRatio: 0.75,
+                  childAspectRatio: 0.9,
                 ),
 
                 itemCount: _medicines.length +
@@ -157,15 +157,18 @@ class _MedicinePageState extends State<MedicinePage> {
                     },
                     child: Column(
                       children: [
-                        Image.network(
-                          _medicines[index].imgUrl,
-                          fit: BoxFit.fill,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(
-                              Icons.broken_image,
-                              size: 50,
-                            );
-                          },
+                        AspectRatio(
+                          aspectRatio: 1.2,
+                          child: Image.network(
+                            _medicines[index].imgUrl,
+                            fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.broken_image,
+                                size: 50,
+                              );
+                            },
+                          ),
                         ),
                         Text(
                           _medicines[index].name,
@@ -184,19 +187,21 @@ class _MedicinePageState extends State<MedicinePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
+      floatingActionButton: SizedBox(
+        width: 80.0, // 원하는 너비로 설정
+        height: 80.0, // 원하는 높이로 설정
+        child: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 205, 218, 168),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) =>
-                    const InventoryScreen()), // Use PurchaseWidget
-          );
-        },
-        child: const Icon(
-          Icons.shopping_cart,
-          color: Colors.black,
+                    const InventoryScreen(), // Use PurchaseWidget
+              ),
+            );
+          },
+          child: const Icon(Icons.shopping_cart, color: Colors.black, size: 40),
         ),
       ),
     );

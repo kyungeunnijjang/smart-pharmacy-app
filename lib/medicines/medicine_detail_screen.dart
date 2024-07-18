@@ -100,8 +100,8 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                       children: [
                         Image.network(
                           medicine.imgURL,
-                          width: 180, // 원하는 너비로 설정
-                          height: 180,
+                          width: 360, // 원하는 너비로 설정
+                          height: 300,
                           fit: BoxFit.fill,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) {
@@ -119,19 +119,17 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                             );
                           },
                         ),
-                        const SizedBox(
-                          width: 20.0,
-                        ),
+                        const Gap(60),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 180,
+                              width: 300,
                               child: Text(
                                 medicine.name,
                                 overflow: TextOverflow.visible,
                                 style: const TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
@@ -144,12 +142,12 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                                     text: '가격: ',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20.0,
+                                      fontSize: 40.0,
                                     ),
                                   ),
                                   TextSpan(
                                     text: ' ${medicine.price}원',
-                                    style: const TextStyle(fontSize: 18.0),
+                                    style: const TextStyle(fontSize: 40.0),
                                   ),
                                 ],
                               ),
@@ -203,6 +201,18 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     title: "사용에 주의해야하는 사항",
                     content: medicine.cautions,
                   ),
+                  DescrtionItem(
+                    title: "부작용",
+                    content: medicine.sideEffect,
+                  ),
+                  DescrtionItem(
+                    title: "보관 방법",
+                    content: medicine.howToStore,
+                  ),
+                  DescrtionItem(
+                    title: "사용법",
+                    content: medicine.usage,
+                  ),
 
                   // Text(medicine.averageRating.toString()),
                   // Row(
@@ -245,18 +255,27 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  const InventoryScreen(), // Use PurchaseScreen class here
-            ),
-          );
-        },
-        child: const Icon(Icons.shopping_cart, color: Colors.black),
+      floatingActionButton: SizedBox(
+        width: 80.0, // 원하는 너비로 설정
+        height: 80.0, // 원하는 높이로 설정
+        child: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 205, 218, 168),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    const InventoryScreen(), // Use PurchaseScreen class here
+              ),
+            );
+          },
+
+          child: const Icon(
+            Icons.shopping_cart,
+            color: Colors.black,
+            size: 40,
+          ), //size: 40,
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: const Color.fromARGB(255, 236, 242, 219),
@@ -282,10 +301,15 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                 _showOverlay(context);
               },
               style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                ),
                 foregroundColor: WidgetStateProperty.all(Colors.black),
               ),
-              child: const Text('장바구니에 담기',
-                  style: TextStyle(color: Colors.black, fontSize: 16)),
+              child: const Text(
+                '장바구니에 담기',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
             ),
           ],
         ),
@@ -306,31 +330,38 @@ class DescrtionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        elevation: 8,
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                content,
+    if (content == "nan") {
+      return const SizedBox();
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 8,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                title,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  content,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.justify,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
