@@ -126,6 +126,23 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     ),
                   ),
                   Text(medicine.averageRating.toString()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(5, (index) {
+                      IconData icon;
+                      if (index < medicine.averageRating.floor()) {
+                        icon = Icons.star;
+                      } else if (index < medicine.averageRating) {
+                        icon = Icons.star_half;
+                      } else {
+                        icon = Icons.star_border;
+                      }
+                      return Icon(
+                        icon,
+                        color: Colors.amber,
+                      );
+                    }),
+                  ),
 
                   // Remove the Row with buttons from here
                 ],
