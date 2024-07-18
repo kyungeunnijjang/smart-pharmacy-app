@@ -70,6 +70,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         title: FutureBuilder(
           future: _medicineFuture,
           builder: (context, snapshot) {
@@ -135,7 +136,6 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               );
             }
 
-            // Add a default return statement
             return const Center(
               child: Text('Unable to load data'),
             );
@@ -143,6 +143,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         onPressed: () {
           Navigator.push(
             context,
@@ -152,9 +153,10 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             ),
           );
         },
-        child: const Icon(Icons.shopping_cart),
+        child: const Icon(Icons.shopping_cart, color: Colors.black),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 236, 242, 219),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
