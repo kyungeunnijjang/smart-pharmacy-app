@@ -7,10 +7,12 @@ class InventoryBox extends StatefulWidget {
     super.key,
     required this.inventory,
     required this.onDelete,
+    required this.onUpdate,
   });
 
   final InventoryModel inventory;
   final Function(int) onDelete;
+  final Function(int) onUpdate;
 
   @override
   State<InventoryBox> createState() => _InventoryBoxState();
@@ -18,26 +20,25 @@ class InventoryBox extends StatefulWidget {
 
 class _InventoryBoxState extends State<InventoryBox> {
   late Future<int> _quantity;
-  late int total;
 
   @override
   void initState() {
     super.initState();
 
     _quantity = Future.value(widget.inventory.quantity);
-    total = widget.inventory.medicinePrice * widget.inventory.quantity;
   }
 
-  void updateQuantity(int quantity) async {
+  void updateQuantity(int quantity, int delta) async {
     setState(() {
-      _quantity = Future.value(-1); // 로딩 상태를 나타내기 위해 -1 설정
+      _quantity = Future.value(-1);
     });
-
-    await ApiService()
-        .putInventory(id: widget.inventory.id, quantity: quantity);
+    await ApiService().putInventory(
+      id: widget.inventory.id,
+      quantity: quantity + delta,
+    );
+    widget.onUpdate(widget.inventory.medicinePrice * delta);
     setState(() {
-      _quantity = Future.value(quantity);
-      total = widget.inventory.medicinePrice * quantity; // 업데이트된 수량 설정
+      _quantity = Future.value(quantity + delta);
     });
   }
 
@@ -71,10 +72,6 @@ class _InventoryBoxState extends State<InventoryBox> {
                   '재고${widget.inventory.medicineRemaining}개',
                   style: const TextStyle(fontSize: 16.0),
                 ),
-                Text(
-                  '총 : $total원',
-                  style: const TextStyle(fontSize: 16.0),
-                ),
                 FutureBuilder(
                   future: _quantity,
                   builder: (context, snapshot) {
@@ -95,8 +92,7 @@ class _InventoryBoxState extends State<InventoryBox> {
                             IconButton(
                               icon: const Icon(Icons.remove),
                               onPressed: () {
-                                int newQuantity = quantity - 1;
-                                updateQuantity(newQuantity);
+                                updateQuantity(quantity, -1);
                               },
                             ),
                           if (quantity < 2)
@@ -116,8 +112,7 @@ class _InventoryBoxState extends State<InventoryBox> {
                           IconButton(
                             icon: const Icon(Icons.add),
                             onPressed: () {
-                              int newQuantity = quantity + 1;
-                              updateQuantity(newQuantity);
+                              updateQuantity(quantity, 1);
                             },
                           ),
                           Align(

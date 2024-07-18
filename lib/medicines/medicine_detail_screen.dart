@@ -125,6 +125,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                       ),
                     ),
                   ),
+
                   Text(medicine.averageRating.toString()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
