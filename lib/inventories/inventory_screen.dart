@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/authentication/log_in_screen.dart';
 import 'package:pharmacy_app/inventories/inventory_box.dart';
+import 'package:pharmacy_app/medicines/medicine_page.dart';
 import 'package:pharmacy_app/models/inventory.dart';
 import 'package:pharmacy_app/services/api_service.dart';
 
@@ -36,9 +37,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
 
   void _removeInventory(int id) {
     setState(() {
-      _inventoriesFuture = _inventoriesFuture.then((inventories) {
-        return inventories.where((inventory) => inventory.id != id).toList();
-      });
+      _inventoriesFuture = ApiService().getInventories();
     });
   }
 
@@ -99,6 +98,18 @@ class _InventoryScreenState extends State<InventoryScreen> {
               fontWeight: FontWeight.w600,
               color: Color.fromARGB(255, 13, 7, 7),
               fontFamily: "TEST"),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MedicinePage(),
+              ),
+              (Route<dynamic> route) => false, // 추가된 부분
+            );
+          },
         ),
       ),
       body: FutureBuilder(

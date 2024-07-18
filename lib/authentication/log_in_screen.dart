@@ -168,11 +168,12 @@ class LogInScreen extends StatelessWidget {
   }
 
   void _goInventory(BuildContext context) {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
         builder: (context) => const InventoryScreen(),
       ),
+      (Route<dynamic> route) => false, // 추가된 부분
     );
   }
 
