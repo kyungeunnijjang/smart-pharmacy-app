@@ -91,6 +91,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         title: const Text(
           "장바구니",
           style: TextStyle(
