@@ -35,10 +35,42 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
     _medicineFuture = ApiService().getMedicineDetail(widget.id);
   }
 
+  void _showOverlay(BuildContext context) {
+    final overlay = Overlay.of(context);
+    final overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: 80.0, // Adjust the position as needed
+        left: MediaQuery.of(context).size.width / 2 - 70, // Center the overlay
+
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 227, 222, 222),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: const Text(
+              '장바구니에 담겼습니다',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(overlayEntry);
+    Future.delayed(const Duration(seconds: 1), () {
+      overlayEntry.remove();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         title: FutureBuilder(
           future: _medicineFuture,
           builder: (context, snapshot) {
@@ -77,6 +109,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 13.0), // Add padding to create space
+
                     child: RichText(
                       text: TextSpan(
                         style: DefaultTextStyle.of(context).style,
@@ -93,6 +126,24 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                     ),
                   ),
                   Text(medicine.averageRating.toString()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(5, (index) {
+                      IconData icon;
+                      if (index < medicine.averageRating.floor()) {
+                        icon = Icons.star;
+                      } else if (index < medicine.averageRating) {
+                        icon = Icons.star_half;
+                      } else {
+                        icon = Icons.star_border;
+                      }
+                      return Icon(
+                        icon,
+                        color: Colors.amber,
+                      );
+                    }),
+                  ),
+
                   // Remove the Row with buttons from here
                 ],
               );
@@ -102,7 +153,6 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
               );
             }
 
-            // Add a default return statement
             return const Center(
               child: Text('Unable to load data'),
             );
@@ -110,6 +160,7 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         onPressed: () {
           Navigator.push(
             context,
@@ -119,9 +170,10 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
             ),
           );
         },
-        child: const Icon(Icons.shopping_cart),
+        child: const Icon(Icons.shopping_cart, color: Colors.black),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 236, 242, 219),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -140,11 +192,13 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                   medicineId: widget.id,
                   quantity: _quantity,
                 );
+                // Show Overlay when button is pressed
+                _showOverlay(context);
               },
               style: ButtonStyle(
                 foregroundColor: WidgetStateProperty.all(Colors.black),
               ),
-              child: const Text('담기',
+              child: const Text('장바구니에 담기',
                   style: TextStyle(color: Colors.black, fontSize: 16)),
             ),
           ],

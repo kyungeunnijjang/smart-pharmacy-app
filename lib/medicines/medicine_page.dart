@@ -51,6 +51,7 @@ class _MedicinePageState extends State<MedicinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         title: const Text(
           '약 구경',
           style: TextStyle(
@@ -170,6 +171,7 @@ class _MedicinePageState extends State<MedicinePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 205, 218, 168),
         onPressed: () {
           Navigator.push(
             context,
@@ -178,7 +180,10 @@ class _MedicinePageState extends State<MedicinePage> {
                     const InventoryScreen()), // Use PurchaseWidget
           );
         },
-        child: const Icon(Icons.shopping_cart),
+        child: const Icon(
+          Icons.shopping_cart,
+          color: Colors.black,
+        ),
       ),
     );
   }
