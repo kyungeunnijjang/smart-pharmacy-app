@@ -154,6 +154,24 @@ class _MedicineDetailScreenState extends State<MedicineDetailScreen> {
                                 ],
                               ),
                             ),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                    text: '재고 : ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${medicine.remaining}개',
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),
+                                ],
+                              ),
+                            ),
                             // Text(
                             //   medicine.averageRating.toString(),
                             //   style: const TextStyle(fontSize: 18.0),
