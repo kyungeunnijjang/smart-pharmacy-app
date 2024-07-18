@@ -170,12 +170,16 @@ class _MedicinePageState extends State<MedicinePage> {
                             },
                           ),
                         ),
-                        Text(
-                          _medicines[index].name,
-                          style: const TextStyle(fontSize: 16.0),
-                          maxLines: 2, // Limit to 6 lines
-                          overflow: TextOverflow
-                              .ellipsis, // Add ellipsis if text overflows
+                        Expanded(
+                          // Add Expanded here
+                          child: Text(
+                            _medicines[index].name,
+                            style: const TextStyle(fontSize: 14.0), // 폰트 크기 줄이기
+                            maxLines: 1, // 최대 2줄로 제한
+                            overflow:
+                                TextOverflow.ellipsis, // 텍스트가 넘칠 경우 생략 부호 추가
+                            softWrap: true, // 텍스트가 넘칠 경우 줄바꿈 허용
+                          ),
                         ),
                         const SizedBox(height: 8.0),
                       ],
