@@ -13,6 +13,7 @@ class MedicineDetailModel {
   final String sideEffect;
   final String howToStore;
   final int price;
+  final int remaining;
   final double averageRating;
   final int reviewCount;
   final bool isFavorite;
@@ -33,6 +34,7 @@ class MedicineDetailModel {
         sideEffect = json['side_effect'],
         howToStore = json['how_to_store'],
         price = json['price'],
+        remaining = json['remaining'],
         averageRating = json['average_rating'],
         reviewCount = json['review_count'],
         isFavorite = json['is_favorite'],
@@ -59,5 +61,3 @@ class MedicineTinyModel {
         remaining = json['remaining'],
         imgURL = json['img_url'];
 }
-
-
