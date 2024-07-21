@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/QR/qt_purchase1.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class DoctorQrScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class _DoctorQrScreenState extends State<DoctorQrScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  List<String>? dataList;
 
   @override
   void reassemble() {
@@ -53,8 +55,19 @@ class _DoctorQrScreenState extends State<DoctorQrScreen> {
             flex: 1,
             child: Center(
               child: (result != null)
-                  ? Text(
-                      'Barcode Type: ${result!.format}   Data: ${result!.code}')
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Barcode Type: ${result!.format}'),
+                        Text('Data: ${result!.code}'),
+                        Text('Raw Data: ${result!.rawBytes}'),
+                        if (dataList != null)
+                          Column(
+                            children:
+                                dataList!.map((item) => Text(item)).toList(),
+                          ),
+                      ],
+                    )
                   : const Text('스캔 대기 중...'),
             ),
           )
@@ -70,7 +83,17 @@ class _DoctorQrScreenState extends State<DoctorQrScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        if (result != null && result!.code != null) {
+          dataList = result!.code!.split(','); // 콤마로 구분된 문자열을 리스트로 변환
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => QtPurchaseScreen(dataList: dataList)),
+          );
+        }
       });
     });
   }
 }
+
+

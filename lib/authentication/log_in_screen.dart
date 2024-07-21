@@ -177,14 +177,14 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-  void _QrPressed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const DoctorQrScreen(),
-      ),
-    );
-  }
+  // void _QrPressed(BuildContext context) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => const DoctorQrScreen(),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -295,40 +295,40 @@ class LogInScreen extends StatelessWidget {
               fontFamily: "TEST"),
         ),
       ),
-      const SizedBox(
-        height: 10,
-      ),
-      const Row(
-        children: [
-          Expanded(child: Divider(thickness: 1, color: Colors.grey)),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text('or'),
-          ),
-          Expanded(child: Divider(thickness: 1, color: Colors.grey)),
-        ],
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      ElevatedButton(
-        onPressed: () => _QrPressed(context),
-        style: ElevatedButton.styleFrom(
-          shape: const StadiumBorder(),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          backgroundColor: const Color.fromARGB(255, 205, 218, 168),
-          shadowColor: Colors.black, // 그림자 색상 추가
-          elevation: 5,
-        ),
-        child: const Text(
-          "진단서 qr",
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Color.fromARGB(174, 0, 0, 0),
-              fontFamily: "TEST"),
-        ),
-      ),
+      // const SizedBox(
+      //   height: 10,
+      // ),
+      // const Row(
+      //   children: [
+      //     Expanded(child: Divider(thickness: 1, color: Colors.grey)),
+      //     Padding(
+      //       padding: EdgeInsets.symmetric(horizontal: 8.0),
+      //       child: Text('or'),
+      //     ),
+      //     Expanded(child: Divider(thickness: 1, color: Colors.grey)),
+      //   ],
+      // ),
+      // const SizedBox(
+      //   height: 10,
+      // ),
+      // ElevatedButton(
+      //   onPressed: () => _QrPressed(context),
+      //   style: ElevatedButton.styleFrom(
+      //     shape: const StadiumBorder(),
+      //     padding: const EdgeInsets.symmetric(vertical: 16),
+      //     backgroundColor: const Color.fromARGB(255, 205, 218, 168),
+      //     shadowColor: Colors.black, // 그림자 색상 추가
+      //     elevation: 5,
+      //   ),
+      //   child: const Text(
+      //     "진단서 qr",
+      //     style: TextStyle(
+      //         fontSize: 20,
+      //         fontWeight: FontWeight.w600,
+      //         color: Color.fromARGB(174, 0, 0, 0),
+      //         fontFamily: "TEST"),
+      //   ),
+      // ),
     ]);
   }
 
